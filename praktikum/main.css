@@ -1,0 +1,324 @@
+/* Imports */
+/* @import url('https://fonts.googleapis.com/css2?family=Lora&display=swap'); */  /* 'Lora', serif; */
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital@0;1&display=swap');
+
+/* Default Settings */
+*
+{
+    font-family: 'Lora', serif;
+    padding: 0;
+    margin: 0;
+}
+
+:root
+{
+    /* Color */
+    --black : 0 0% 7%;
+    --white : 0 0% 95%;
+    --accent: 224 41% 45%;
+    --dark : 240 59% 16%;
+    --darkprim : 220 49% 26%;
+    --darksec : 240 39% 16%; 
+    --light : 65 18% 87%;
+    --lightprim : 95 18% 77%;
+    --lightsec : 65 18% 67%;
+}
+
+.bg-dark
+{
+    background-color: hsl(var(--black));
+    color: hsl(var(--white));
+}
+
+.bg-dark > .navbar ul li a
+{
+    color: hsl(var(--white));
+}
+
+.bg-light
+{
+    background-color: hsl(var(--white));
+    color: hsl(var(--black));
+    font-weight: 600;
+}
+
+.bg-light > .navbar ul li a
+{
+    color: hsl(var(--black));
+}
+
+/* Components */
+.card
+{
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em;
+    border-radius: 15px;
+    margin-inline: 1em;
+}
+
+.ctitle
+{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: 1px;
+    padding-bottom: 5px;
+}
+
+.ccontent
+{
+
+}
+
+.container
+{
+    display: grid;
+}
+
+.row
+{
+    display: flex;
+}
+
+.column
+{
+    display: block;
+}
+
+.navbar
+{
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-logo, .navbar img
+{
+    aspect-ratio: 1/1;
+    width: 30px;
+    height: 30px;
+    
+}
+
+.navbar ul
+{
+    list-style: none;
+    display: flex;
+}
+.navbar ul li a
+{
+    margin-inline: 1em;
+    text-decoration: none;
+}
+.contlogo img
+{
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.block
+{
+    position: relative;
+    width: 50%;
+    height: 10em;
+    display: flex;
+    flex-direction: row;
+}
+.cube_dark
+{
+    border-radius: 2px 5px 2px 0;
+    background-color: hsl(var(--dark));
+    padding: 0.5em;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    transform: rotate(-25deg) skew(25deg);
+}
+.cube_dark:before {
+    background-color: hsl(var(--darkprim));
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 99%;
+    transform: skewY(-45deg);
+    left: -20px;
+    bottom: -10px;
+}
+
+.cube_dark:after {
+    background-color: hsl(var(--darksec));
+    position: absolute;
+    content: "";
+    width: 99%;
+    height: 20px;
+    transform: skewX(-45deg);
+    left: -10.2px;
+    bottom: -20px;
+}
+
+.cube_light
+{
+    border-radius: 2px 5px 2px 0;
+    background-color: hsl(var(--light));
+    padding: 0.5em;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    transform:rotate(-25deg) skew(25deg) ;
+}
+.cube_light:before {
+    background-color: hsl(var(--lightprim));
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 99%;
+    transform: skewY(-45deg);
+    left: -20px;
+    bottom: -10px;
+}
+
+.cube_light:after {
+    background-color: hsl(var(--lightsec));
+    position: absolute;
+    content: "";
+    width: 99%;
+    height: 20px;
+    transform: skewX(-45deg);
+    left: -10.2px;
+    bottom: -20px;
+}
+
+.cube_dark img ,.cube_light img
+{
+    width: inherit;
+}
+
+.btn-light
+{
+    padding: 0.5em 1em;
+    background-color: hsl(var(--light));
+    color: hsl(var(--black));
+    border-radius: 5px;    
+}
+
+.btn-dark
+{
+    padding: 0.5em 1em;
+    background-color: hsl(var(--dark));
+    color: hsl(var(--white));
+    border-radius: 5px;
+}
+
+/* Theme */
+.th-dark
+{
+    background-color: hsl(var(--dark));
+}
+
+.th-dark > div
+{
+    color: hsl(var(--white));
+}
+
+.th-light
+{
+    background-color: hsl(var(--light));
+}
+
+.th-light > div
+{
+    color: hsl(var(--black));
+}
+
+/* Size */
+.sz-flex 
+{
+    width: fit-content;
+}
+
+.sz-m
+{
+    width: 12em;
+}
+
+.sz-l
+{
+    width: auto;
+}
+
+/* Aligning */
+.center
+{
+    display: flex;
+    justify-self: center;
+    justify-content: center;
+    justify-items: center;
+    text-align: center;
+}
+
+/* Margin and Padding  */
+.m-1
+{
+    margin: 1em;
+}
+
+.m-2
+{
+    margin: 2em;
+}
+
+.m-3
+{
+    margin: 3em;
+}
+
+.mt-1
+{
+    margin-top: 1em;
+}
+
+.mt-2
+{
+    margin-top: 2em;
+}
+
+.mt-3
+{
+    margin-top: 3em;
+}
+
+.mx-1
+{
+    margin-inline: 1em;
+}
+
+.mx-2
+{
+    margin-inline: 2em;
+}
+
+.mx-3
+{
+    margin-inline: 3em;
+}
+
+.my-1
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.my-2
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.my-3
+{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
