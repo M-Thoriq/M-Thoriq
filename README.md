@@ -32,7 +32,7 @@ I'm Thoriq an undergraduate Information Technology student at University of Nort
   </a> &nbsp;&nbsp;&nbsp;
   
   <a href="https://laravel.com/" target="_blank" rel="noreferrer"> 
-    <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/laravel/laravel-plain-wordmark.svg" alt="laravel" width="30" height="30"/>
+    <img src="https://laravel.com/img/logomark.min.svg" alt="laravel" width="30" height="30"/>
   </a> &nbsp;&nbsp;&nbsp;
   <a href="https://www.linux.org/" target="_blank" rel="noreferrer"> 
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/linux/linux-original.svg" alt="linux" width="30" height="30"/> 
