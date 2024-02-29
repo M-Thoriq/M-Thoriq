@@ -7,6 +7,6 @@ I'm Thoriq an undergraduate Information Technology student at University of Nort
 
 
 ## 🛠 Skills
-- Web Development
+- Web Development https://www.svgrepo.com/show/494363/android.svg
 - Mobile Development
 - Desktop Development
