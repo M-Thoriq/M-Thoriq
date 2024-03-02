@@ -19,9 +19,11 @@
         </div>
     </div>
     <section id="#">
-    <div class="bg-gray-800 w-5/6 px-7 py-6 ml-64 h-fit rounded-lg my-5">
-        <div class="flex gap-2"><h1 class="my-auto text-7xl font-bold text-nowrap text-white">Hi there </h1><img class="w-28" src="kucing1.png" alt=""/></div>
-        <div class="flex gap-2 transition duration-100 ease-in-out"><h1 class="text-white text-8xl font-extrabold">I'm <span class="transition-all ease-in-out delay-100" id="aboutMe">Thoriq</span></h1><p class=" text-8xl " id="me">👋</p></div>
+    <div class="bg-gray-800 w-fit px-7 py-6 ml-64 h-fit rounded-lg my-5">
+        <section class="min-h-screen grid content-center items-center place-items-center self-center">
+          <div class="flex gap-2"><h1 class="my-auto text-6xl font-bold text-nowrap text-white">Hi there </h1><img class="w-28 h-28" src="kucing1.png" alt=""/></div>
+          <div class="flex gap-2 transition border border-red-600 pb-3 overflow-y-hidden ease-in duration-1000 delay-75"><h1 class="text-white text-7xl font-extrabold  transition-all ease-in-out duration-1000 delay-75" id="myself">I'm <span class="transition-all ease-in" id="aboutMe">Thoriq</span></h1><p class=" text-7xl duration-1000 transition-all ease-in delay-75" id="me">👋</p></div>
+        </section>
         <div class="h-5 w-full my-8 rounded-md bg-slate-50"></div>
         <h1 class="mt-5 text-5xl font-bold w-full flex text-white"><p class="m-auto uppercase font-mono">Projects</p></h1>
         <div class="grid-cols-2 grid gap-8 mt-5" id="#projects">
@@ -121,16 +123,33 @@
         i++;
         if (i === arrayKucing.length) i = 0;
     }, 600);
-    const me = document.getElementById('me');
-    const aboutMe = document.getElementById('aboutMe');
-    const array = ['Thoriq', 'a Web Developer', 'a Cat (real)', 'a Student'];
-    const arrMe = ['👋', '💻', '🐾', '🎓'];
-    let j = 0;
-    setInterval(() => {
-        aboutMe.innerHTML = array[j];
-        me.innerHTML = arrMe[j];
-        j++;
-        if (j === array.length) j = 0;
-    }, 2000);
+    const myself = document.getElementById('myself');
+const me = document.getElementById('me');
+const aboutMe = document.getElementById('aboutMe');
+const array = ['Thoriq', 'a Web Developer', 'a Cat (real)', 'a Student'];
+const arrMe = ['👋', '💻', '🐾', '🎓'];
+let j = 0;
+let isReversed = false;
+
+setInterval(() => {
+    if (!isReversed) {
+        myself.classList.add('translate-y-0');
+        me.classList.add('translate-y-0');
+        myself.classList.remove('translate-y-20');
+        me.classList.remove('translate-y-20');
+    } else {
+        myself.classList.add('translate-y-20');
+        me.classList.add('translate-y-20');
+        myself.classList.remove('translate-y-0');
+        me.classList.remove('translate-y-0');
+    }
+    isReversed = !isReversed;
+    aboutMe.innerHTML = array[j];
+    me.innerHTML = arrMe[j];
+    j++;
+    if (j === array.length) j = 0;
+
+}, 1000);
+
 </script>
 </html>
