@@ -6,7 +6,217 @@
     <title>IMK Tailwind</title>
     <link rel="stylesheet" href="../main.css">
 </head>
-<body>
-    
+<body class="bg-gray-100 pb-8">
+    <header class="w-full bg-neutral-950 text-white h-fit">
+        <nav class="max-w-screen-xl flex justify-between p-4 lg:py-4 lg:px-16 mx-auto">
+            <div class="grid grid-flow-col gap-3 my-auto">
+                <img class="" src="https://kampusmerdeka.kemdikbud.go.id/static/media/logo-pendidikan.92aef756.webp" alt="logo-pendidikan">
+                <img class="" src="https://kampusmerdeka.kemdikbud.go.id/static/media/logo-white.d216d864.webp" alt="logo-mbkm">
+            </div>
+            <div class="gap-8 hidden lg:flex">
+                <span class="font-medium text-lg my-auto">Beranda</span>
+                <span class="font-medium text-lg my-auto">Program</span>
+                <span class="font-medium text-lg my-auto">Butuh Bantuan?</span>
+                <div class="rounded-full flex gap-2 bg-slate-100 p-3 font-bold text-black">
+                    <svg class="my-auto" viewBox="0 0 24 24" height="20" fill="#A0A4A8" stroke=""><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"></path></svg>
+                    Masuk ke Akun
+                </div>
+            </div>
+            <div class="lg:hidden flex place-content-center">
+                <svg id="hamburger" class="m-auto cursor-pointer" viewBox="0 0 24 24" height="25" fill="#FFFFFF" stroke=""><path d="M20,18H4c-0.6,0-1-0.4-1-1s0.4-1,1-1h16c0.6,0,1,0.4,1,1S20.6,18,20,18z M20,13H4c-0.6,0-1-0.4-1-1s0.4-1,1-1h16  c0.6,0,1,0.4,1,1S20.6,13,20,13z M20,8H4C3.4,8,3,7.6,3,7s0.4-1,1-1h16c0.6,0,1,0.4,1,1S20.6,8,20,8z"></path></svg>
+                <div id="bg_focus_dialog" class="h-screen w-full bg-black bg-opacity-75 z-10 fixed hidden top-0 right-0"></div>
+                <div id="dialog" class="h-3/5 -translate-y-full transition-all ease-in-out w-full bg-white z-20 fixed top-0 right-0">
+                    <div class="grid gap-5 py-5 px-4">
+                        <span id="close-icon" class="flex justify-end cursor-pointer"><svg viewBox="0 0 24 24" height="24" fill="#53575A" stroke=""><path d="M19,6.4L17.6,5L12,10.6L6.4,5L5,6.4l5.6,5.6L5,17.6L6.4,19l5.6-5.6l5.6,5.6l1.4-1.4L13.4,12L19,6.4z"></path></svg></span>
+                        <span class="text-gray-400 text-sm font-normal tracking-tight">Program Kampus Merdeka</span>
+                        <div class="flex justify-between cursor-pointer">
+                            <span class="font-medium text-black tracking-tight">
+                                Kampus Mengajar
+                            </span>
+                            <svg viewBox="0 0 24 24" height="20" fill="#45474A" stroke=""><path d="M13,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l4.3-4.3H5c-0.6,0-1-0.4-1-1s0.4-1,1-1h11.6l-4.3-4.3  c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4  c0,0.1-0.1,0.2-0.2,0.3l-6,6C13.5,18.9,13.3,19,13,19z"></path></svg>
+                        </div>
+                        <div class="flex justify-between cursor-pointer">
+                            <span class="font-medium text-black tracking-tight">
+                                Magang MSIB
+                            </span>
+                            <svg viewBox="0 0 24 24" height="20" fill="#45474A" stroke=""><path d="M13,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l4.3-4.3H5c-0.6,0-1-0.4-1-1s0.4-1,1-1h11.6l-4.3-4.3  c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4  c0,0.1-0.1,0.2-0.2,0.3l-6,6C13.5,18.9,13.3,19,13,19z"></path></svg>
+                        </div>
+                        <div class="flex justify-between cursor-pointer">
+                            <span class="font-medium text-black tracking-tight">
+                                Studi Independen Bersertifikat
+                            </span>
+                            <svg viewBox="0 0 24 24" height="20" fill="#45474A" stroke=""><path d="M13,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l4.3-4.3H5c-0.6,0-1-0.4-1-1s0.4-1,1-1h11.6l-4.3-4.3  c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4  c0,0.1-0.1,0.2-0.2,0.3l-6,6C13.5,18.9,13.3,19,13,19z"></path></svg>
+                        </div>
+                        <div class="flex justify-between cursor-pointer">
+                            <span class="font-medium text-black tracking-tight">
+                                Pertukaran Mahasiswa Merdeka
+                            </span>
+                            <svg viewBox="0 0 24 24" height="20" fill="#45474A" stroke=""><path d="M13,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l4.3-4.3H5c-0.6,0-1-0.4-1-1s0.4-1,1-1h11.6l-4.3-4.3  c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4  c0,0.1-0.1,0.2-0.2,0.3l-6,6C13.5,18.9,13.3,19,13,19z"></path></svg>
+                        </div>
+                        <div class="flex justify-between cursor-pointer">
+                            <span class="font-medium text-black tracking-tight">
+                                Program dan Kegiatan Lainnya
+                            </span>
+                            <svg viewBox="0 0 24 24" height="20" fill="#45474A" stroke=""><path d="M13,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4l4.3-4.3H5c-0.6,0-1-0.4-1-1s0.4-1,1-1h11.6l-4.3-4.3  c-0.4-0.4-0.4-1,0-1.4s1-0.4,1.4,0l6,6c0.1,0.1,0.2,0.2,0.2,0.3c0,0.1,0.1,0.2,0.1,0.4l0,0c0,0,0,0,0,0l0,0c0,0.1,0,0.3-0.1,0.4  c0,0.1-0.1,0.2-0.2,0.3l-6,6C13.5,18.9,13.3,19,13,19z"></path></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <nav class="lg:hidden fixed w-full bg-white border-t border bottom-0">
+            <div class="flex justify-around py-2 text-xs text-gray-600">
+                <div><svg class="mx-auto" viewBox="0 0 24 24" height="24" fill="#F66951" stroke=""><path d="M10,20v-6h4v6h5v-8h3L12,3L2,12h3v8H10z"></path></svg>Beranda</div>
+                <div><svg class="mx-auto" viewBox="0 0 24 24" height="24" fill="#A0A4A8" stroke=""><path d="M10 16V15H3.01L3 19C3 20.11 3.89 21 5 21H19C20.11 21 21 20.11 21 19V15H14V16H10ZM20 7H15.99V5L13.99 3H9.99L7.99 5V7H4C2.9 7 2 7.9 2 9V12C2 13.11 2.89 14 4 14H10V12H14V14H20C21.1 14 22 13.1 22 12V9C22 7.9 21.1 7 20 7ZM14 7H10V5H14V7Z"></path></svg>Program</div>
+                <div><svg class="mx-auto" viewBox="0 0 41 41" height="24" fill="#A0A4A8" stroke=""><path d="M20.5,38.9c-10.1,0-18.4-8.2-18.4-18.4S10.4,2.1,20.5,2.1s18.4,8.2,18.4,18.4S30.6,38.9,20.5,38.9z M20.5,5.5  c-8.3,0-15,6.7-15,15s6.7,15,15,15s15-6.7,15-15S28.8,5.5,20.5,5.5z"></path><path d="M20.4,23.9c-0.7,0-1.4-0.4-1.6-1.2c-0.3-0.9,0.2-1.8,1.1-2.1c1-0.3,3.8-1.7,3.8-3.4c0-0.8-0.3-1.5-0.8-2.1  c-0.5-0.6-1.2-1-2-1.1c-0.8-0.1-1.6,0-2.2,0.4c-0.7,0.4-1.2,1-1.4,1.8c-0.3,0.9-1.3,1.3-2.2,1c-0.9-0.3-1.3-1.3-1-2.2  c0.5-1.5,1.6-2.7,2.9-3.5c1.4-0.8,3-1.1,4.5-0.8c1.6,0.3,3,1.1,4,2.3c1,1.2,1.6,2.7,1.6,4.3c0,4.4-5.5,6.4-6.2,6.6  C20.7,23.8,20.5,23.9,20.4,23.9z"></path><path d="M20.5,30.5c-0.9,0-1.7-0.8-1.7-1.7s0.7-1.7,1.7-1.7h0c0.9,0,1.7,0.8,1.7,1.7S21.4,30.5,20.5,30.5z"></path></svg>FAQ</div>
+                <div><svg class="mx-auto" viewBox="0 0 24 24" height="24" fill="#A0A4A8" stroke=""><path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z"></path></svg>Masuk</div>
+            </div>
+        </nav>
+    </header>
+    <div class="w-full h-fit hidden lg:flex">
+        <div class="mx-auto flex">
+            <div class="cursor-pointer flex w-fit hover:bg-gray-200 group py-4 px-6 gap-5">
+                <span class="font-bold group-hover:text-blue-600  max-w-[14ch]">Kampus Mengajar</span>
+                <svg class="my-auto group-hover:fill-blue-600" viewBox="0 0 24 24" height="24" fill="" stroke=""><path d="M16.6,8.6L12,13.2L7.4,8.6L6,10l6,6l6-6L16.6,8.6z"></path></svg>
+            </div>
+            <div class="cursor-pointer flex w-fit hover:bg-gray-200 group py-4 px-6 gap-5">
+                <span class="font-bold group-hover:text-blue-600  max-w-[14ch] my-auto">Magang MSIB</span>
+                <svg class="my-auto group-hover:fill-blue-600" viewBox="0 0 24 24" height="24" fill="" stroke=""><path d="M16.6,8.6L12,13.2L7.4,8.6L6,10l6,6l6-6L16.6,8.6z"></path></svg>
+            </div>
+            <div class="cursor-pointer flex w-fit hover:bg-gray-200 group py-4 px-6 gap-5">
+                <span class="font-bold group-hover:text-blue-600  max-w-[20ch] my-auto">Studi Independen Bersertifikat</span>
+                <svg class="my-auto group-hover:fill-blue-600" viewBox="0 0 24 24" height="24" fill="" stroke=""><path d="M16.6,8.6L12,13.2L7.4,8.6L6,10l6,6l6-6L16.6,8.6z"></path></svg>
+            </div>
+            <div class="cursor-pointer flex w-fit hover:bg-gray-200 group py-4 px-6 gap-5">
+                <span class="font-bold group-hover:text-blue-600  max-w-[20cursor-pointer ch] my-auto">Pertukaran Mahasiswa Merdeka</span>
+                <svg class="my-auto group-hover:fill-blue-600" viewBox="0 0 24 24" height="24" fill="" stroke=""><path d="M16.6,8.6L12,13.2L7.4,8.6L6,10l6,6l6-6L16.6,8.6z"></path></svg>
+            </div>
+            <div class="cursor-pointer flex w-fit hover:bg-gray-200 group py-4 px-6 gap-5">
+                <span class="font-bold group-hover:text-blue-600  max-w-[14ch] my-auto">Program dan Kegiatan Lainnya</span>
+            </div>
+        </div>
+    </div>
+    <section id="beranda">
+        <div class="bg-[url('https://kampusmerdeka.kemdikbud.go.id/static/media/headline-mahasiswa.7bfc0303.webp')] min-h-80 max-h-80 lg:min-h-[70dvh] bg-cover lg:ps-40 lg:py-16 py-10 px-4 grid">
+            <span class="text-white text-3xl lg:text-7xl font-bold font-sans first-letter: whitespace-break-spaces leading-snug">Ambil Kendali</br>Masa Depanmu</span>
+            <span class="text-white lg:text-xl max-w-[40ch] font-normal font-sans lg:-mt-10">
+                Kampus Merdeka adalah cara terbaik berkuliah. Dapatkan kemerdekaan untuk membentuk masa depan yang sesuai dengan aspirasi kariermu.
+            </span>
+            <div class="lg:flex lg:gap-3 lg:-mt-5">
+                <div class="bg-blue-600 text-center rounded-full lg:rounded-xl lg:px-14 lg:py-3 lg:h-fit p-2 mt-3 font-bold text-white">Telusuri Program</div>
+                <div class="bg-slate-50 text-center rounded-full lg:rounded-xl lg:px-14 lg:py-3 lg:h-fit p-2 mt-3 font-medium">Cek Persyaratan Umum</div>
+            </div>
+        </div>
+    </section>
+    <section id="program">
+        <div class="py-10 px-4 grid gap-6 h-fit">
+            <h1 class="font-bold text-3xl lg:ms-36">Program dan Kegiatan Unggulan</h1>
+            <div class="overflow-x-scroll lg:px-36 snap-x no-scrollbar flex gap-3">
+                <div class="snap-center px-4 py-6 rounded-3xl min-w-64 max-w-64 lg:min-w-72 lg:max-w-72 bg-white grid lg:gap-6 gap-4">
+                    <img src="https://kampusmerdeka.kemdikbud.go.id/static/media/kampus-mengajar-logo.4cb4b8b5.webp" alt="">
+                    <span class="font-normal lg:text-xl text-lg font-sans leading-tight">
+                        Bantu tingkatkan kualitas 
+                        pengajaran pendidikan 
+                        dasar melalui <b>Kampus Mengajar</b>
+                    </span>
+                    <span class="font-extralight lg:text-xl text-lg text-gray-600">
+                        Pendaftaran: 
+                        Telah ditutup pada 25 November 2023
+                    </span>
+                    <div class="border border-gray-700 lg:text-xl rounded-2xl text-gray-900 text-center py-2.5 font-bold flex justify-center gap-1">Selengkapnya<svg viewBox="0 0 24 24" height="24" fill="#2F3031" stroke=""><path d="M6,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4L15.6,7H7.9c-0.6,0-1-0.4-1-1s0.4-1,1-1H18c0,0,0,0,0,0l0,0  c0.1,0,0.3,0,0.4,0.1c0.1,0,0.2,0.1,0.3,0.2s0.2,0.2,0.2,0.3C19,5.7,19,5.9,19,6l0,0c0,0,0,0,0,0v10.1c0,0.6-0.4,1-1,1s-1-0.4-1-1  V8.4L6.7,18.7C6.5,18.9,6.3,19,6,19z"></path></svg></div>
+                </div>
+                <div class="snap-center px-4 py-6 rounded-3xl min-w-64 max-w-64 lg:min-w-72 lg:max-w-72 bg-white grid lg:gap-6 gap-4">
+                    <img src="https://kampusmerdeka.kemdikbud.go.id/static/media/kampus-mengajar-logo.4cb4b8b5.webp" alt="">
+                    <span class="font-normal lg:text-xl text-lg font-sans leading-tight">
+                        Bantu tingkatkan kualitas 
+                        pengajaran pendidikan 
+                        dasar melalui <b>Kampus Mengajar</b>
+                    </span>
+                    <span class="font-extralight lg:text-xl text-lg text-gray-600">
+                        Pendaftaran: 
+                        Telah ditutup pada 25 November 2023
+                    </span>
+                    <div class="border border-gray-700 lg:text-xl rounded-2xl text-gray-900 text-center py-2.5 font-bold flex justify-center gap-1">Selengkapnya<svg viewBox="0 0 24 24" height="24" fill="#2F3031" stroke=""><path d="M6,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4L15.6,7H7.9c-0.6,0-1-0.4-1-1s0.4-1,1-1H18c0,0,0,0,0,0l0,0  c0.1,0,0.3,0,0.4,0.1c0.1,0,0.2,0.1,0.3,0.2s0.2,0.2,0.2,0.3C19,5.7,19,5.9,19,6l0,0c0,0,0,0,0,0v10.1c0,0.6-0.4,1-1,1s-1-0.4-1-1  V8.4L6.7,18.7C6.5,18.9,6.3,19,6,19z"></path></svg></div>
+                </div>
+                <div class="snap-center px-4 py-6 rounded-3xl min-w-64 max-w-64 lg:min-w-72 lg:max-w-72 bg-white grid lg:gap-6 gap-4">
+                    <img src="https://kampusmerdeka.kemdikbud.go.id/static/media/kampus-mengajar-logo.4cb4b8b5.webp" alt="">
+                    <span class="font-normal lg:text-xl text-lg font-sans leading-tight">
+                        Bantu tingkatkan kualitas 
+                        pengajaran pendidikan 
+                        dasar melalui <b>Kampus Mengajar</b>
+                    </span>
+                    <span class="font-extralight lg:text-xl text-lg text-gray-600">
+                        Pendaftaran: 
+                        Telah ditutup pada 25 November 2023
+                    </span>
+                    <div class="border border-gray-700 lg:text-xl rounded-2xl text-gray-900 text-center py-2.5 font-bold flex justify-center gap-1">Selengkapnya<svg viewBox="0 0 24 24" height="24" fill="#2F3031" stroke=""><path d="M6,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4L15.6,7H7.9c-0.6,0-1-0.4-1-1s0.4-1,1-1H18c0,0,0,0,0,0l0,0  c0.1,0,0.3,0,0.4,0.1c0.1,0,0.2,0.1,0.3,0.2s0.2,0.2,0.2,0.3C19,5.7,19,5.9,19,6l0,0c0,0,0,0,0,0v10.1c0,0.6-0.4,1-1,1s-1-0.4-1-1  V8.4L6.7,18.7C6.5,18.9,6.3,19,6,19z"></path></svg></div>
+                </div>
+                <div class="snap-center px-4 py-6 rounded-3xl min-w-64 max-w-64 lg:min-w-72 lg:max-w-72 bg-white grid lg:gap-6 gap-4">
+                    <img src="https://kampusmerdeka.kemdikbud.go.id/static/media/kampus-mengajar-logo.4cb4b8b5.webp" alt="">
+                    <span class="font-normal lg:text-xl text-lg font-sans leading-tight">
+                        Bantu tingkatkan kualitas 
+                        pengajaran pendidikan 
+                        dasar melalui <b>Kampus Mengajar</b>
+                    </span>
+                    <span class="font-extralight lg:text-xl text-lg text-gray-600">
+                        Pendaftaran: 
+                        Telah ditutup pada 25 November 2023
+                    </span>
+                    <div class="border border-gray-700 lg:text-xl rounded-2xl text-gray-900 text-center py-2.5 font-bold flex justify-center gap-1">Selengkapnya<svg viewBox="0 0 24 24" height="24" fill="#2F3031" stroke=""><path d="M6,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4L15.6,7H7.9c-0.6,0-1-0.4-1-1s0.4-1,1-1H18c0,0,0,0,0,0l0,0  c0.1,0,0.3,0,0.4,0.1c0.1,0,0.2,0.1,0.3,0.2s0.2,0.2,0.2,0.3C19,5.7,19,5.9,19,6l0,0c0,0,0,0,0,0v10.1c0,0.6-0.4,1-1,1s-1-0.4-1-1  V8.4L6.7,18.7C6.5,18.9,6.3,19,6,19z"></path></svg></div>
+                </div>
+                <div class="snap-center px-4 py-6 rounded-3xl min-w-64 max-w-64 lg:min-w-72 lg:max-w-72 bg-white grid lg:gap-6 gap-4">
+                    <img src="https://kampusmerdeka.kemdikbud.go.id/static/media/kampus-mengajar-logo.4cb4b8b5.webp" alt="">
+                    <span class="font-normal lg:text-xl text-lg font-sans leading-tight">
+                        Bantu tingkatkan kualitas 
+                        pengajaran pendidikan 
+                        dasar melalui <b>Kampus Mengajar</b>
+                    </span>
+                    <span class="font-extralight lg:text-xl text-lg text-gray-600">
+                        Pendaftaran: 
+                        Telah ditutup pada 25 November 2023
+                    </span>
+                    <div class="border border-gray-700 lg:text-xl rounded-2xl text-gray-900 text-center py-2.5 font-bold flex justify-center gap-1">Selengkapnya<svg viewBox="0 0 24 24" height="24" fill="#2F3031" stroke=""><path d="M6,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4L15.6,7H7.9c-0.6,0-1-0.4-1-1s0.4-1,1-1H18c0,0,0,0,0,0l0,0  c0.1,0,0.3,0,0.4,0.1c0.1,0,0.2,0.1,0.3,0.2s0.2,0.2,0.2,0.3C19,5.7,19,5.9,19,6l0,0c0,0,0,0,0,0v10.1c0,0.6-0.4,1-1,1s-1-0.4-1-1  V8.4L6.7,18.7C6.5,18.9,6.3,19,6,19z"></path></svg></div>
+                </div>
+                <div class="snap-center px-4 py-6 rounded-3xl min-w-64 max-w-64 lg:min-w-72 lg:max-w-72 bg-white grid lg:gap-6 gap-4">
+                    <img src="https://kampusmerdeka.kemdikbud.go.id/static/media/kampus-mengajar-logo.4cb4b8b5.webp" alt="">
+                    <span class="font-normal lg:text-xl text-lg font-sans leading-tight">
+                        Bantu tingkatkan kualitas 
+                        pengajaran pendidikan 
+                        dasar melalui <b>Kampus Mengajar</b>
+                    </span>
+                    <span class="font-extralight lg:text-xl text-lg text-gray-600">
+                        Pendaftaran: 
+                        Telah ditutup pada 25 November 2023
+                    </span>
+                    <div class="border border-gray-700 lg:text-xl rounded-2xl text-gray-900 text-center py-2.5 font-bold flex justify-center gap-1">Selengkapnya<svg viewBox="0 0 24 24" height="24" fill="#2F3031" stroke=""><path d="M6,19c-0.3,0-0.5-0.1-0.7-0.3c-0.4-0.4-0.4-1,0-1.4L15.6,7H7.9c-0.6,0-1-0.4-1-1s0.4-1,1-1H18c0,0,0,0,0,0l0,0  c0.1,0,0.3,0,0.4,0.1c0.1,0,0.2,0.1,0.3,0.2s0.2,0.2,0.2,0.3C19,5.7,19,5.9,19,6l0,0c0,0,0,0,0,0v10.1c0,0.6-0.4,1-1,1s-1-0.4-1-1  V8.4L6.7,18.7C6.5,18.9,6.3,19,6,19z"></path></svg></div>
+                </div>
+                
+            </div>
+            <div class="bg-zinc-800 text-white text-center rounded-2xl p-2 mt-3 font-bold lg:w-fit lg:px-6 lg:py-3 lg:mx-auto">Lihat Program Lainnya</div>
+        </div>
+    </section>
 </body>
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const dialog = document.getElementById('dialog');
+    const bg_focus_dialog = document.getElementById('bg_focus_dialog');
+    const close_icon = document.getElementById('close-icon');
+
+    hamburger.addEventListener('click', () => {
+        dialog.classList.remove('-translate-y-full');
+        bg_focus_dialog.classList.remove('hidden');
+    });
+
+    bg_focus_dialog.addEventListener('click', () => {
+        dialog.classList.add('-translate-y-full');
+        bg_focus_dialog.classList.add('hidden');
+    });
+
+    close_icon.addEventListener('click', () => {
+        dialog.classList.add('-translate-y-full');
+        bg_focus_dialog.classList.add('hidden');
+    });
+
+</script>
 </html>
+
+<!-- https://kampusmerdeka.kemdikbud.go.id/static/media/headline-mahasiswa.7bfc0303.webp, https://kampusmerdeka.kemdikbud.go.id/static/media/headline-mahasiswa@2x.7db442f2.webp 2x,  3x -->
