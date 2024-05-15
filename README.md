@@ -76,7 +76,7 @@ I'm Thoriq an undergraduate Information Technology student at University of Nort
     <img src="https://www.vectorlogo.zone/logos/tailwindcss/tailwindcss-icon.svg" alt="tailwind" width="30" height="30"/> 
   </a> &nbsp;&nbsp;&nbsp;
   
-  <a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> 
+  <!--<a href="https://www.typescriptlang.org/" target="_blank" rel="noreferrer"> 
     <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/typescript/typescript-original.svg" alt="typescript" width="30" height="30"/> 
-  </a> &nbsp;&nbsp;&nbsp;
+  </a> &nbsp;&nbsp;&nbsp;-->
 </p>
