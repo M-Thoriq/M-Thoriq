@@ -1,0 +1,13 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="140" height="108.444" viewBox="0 0 140 108.444" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Rectangle 9">
+<use xlink:href="#stroke0_0_49" fill="#F6DE8E"/>
+<mask id="stroke1_0_49" maskUnits="userSpaceOnUse" x="0" y="0" width="140" height="109" fill="black">
+<rect fill="white" width="140" height="109"/>
+<use xlink:href="#stroke0_0_49"/>
+</mask>
+<path d="M2 16.1235V101.012C2 104.012 4.43204 106.444 7.4321 106.444H132.568C135.568 106.444 138 103.903 138 100.903C138 22.0238 138 100.544 138 21.6648C138 18.6648 135.568 16.1235 132.568 16.1235H118.988H84.778C83.1029 16.1235 81.5216 15.3507 80.4924 14.0292L72.7546 4.09426C71.7253 2.77276 70.144 2 68.4689 2H7.4321C4.43203 2 2 4.43204 2 7.4321L2 16.1235Z" stroke-width="4" stroke="white" mask="url(#stroke1_0_49)"/>
+</g>
+<defs>
+<path id="stroke0_0_49" d="M2 16.1235L2 7.4321C2 4.43204 4.43203 2 7.4321 2H68.4689C70.144 2 71.7253 2.77276 72.7546 4.09426L80.4924 14.0292C81.5216 15.3507 83.1029 16.1235 84.778 16.1235H118.988H132.568C135.568 16.1235 138 18.6648 138 21.6648C138 100.544 138 22.0238 138 100.903C138 103.903 135.568 106.444 132.568 106.444H7.4321C4.43204 106.444 2 104.012 2 101.012V16.1235Z"/>
+</defs>
+</svg>

@@ -1,0 +1,23 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="78.8693" height="75.8881" viewBox="0 0 78.8693 75.8881" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="Star 2" filter="url(#filter0_d_0_51)">
+<use xlink:href="#stroke0_0_51" fill="#C1D7EF"/>
+<mask id="stroke1_0_51" maskUnits="userSpaceOnUse" x="0.000134945" y="0" width="78" height="74" fill="black">
+<rect fill="white" x="0.000134945" width="78" height="74"/>
+<use xlink:href="#stroke0_0_51"/>
+</mask>
+<path d="M39.4346 2C42.0338 2 44.3373 3.67361 45.1407 6.14551L50.9776 24.1113H69.8682C72.4676 24.1113 74.772 25.7857 75.5753 28.2578C76.3782 30.7297 75.4982 33.4381 73.3956 34.9658L58.1124 46.0684L63.9503 64.0342C64.7535 66.5062 63.8733 69.2143 61.7706 70.7422C59.6677 72.2701 56.8198 72.2701 54.7169 70.7422L39.4346 59.6387L24.1524 70.7422C22.0495 72.2701 19.2016 72.2701 17.0987 70.7422C14.996 69.2143 14.1158 66.5062 14.919 64.0342L20.7559 46.0684L5.47371 34.9658C3.37105 33.4381 2.49111 30.7297 3.29402 28.2578C4.09727 25.7857 6.40169 24.1113 9.00105 24.1113H27.8917L33.7286 6.14551L33.8077 5.91602C34.6756 3.57049 36.9166 2 39.4346 2Z" stroke-width="4" stroke="white" mask="url(#stroke1_0_51)"/>
+</g>
+<defs>
+<filter id="filter0_d_0_51" x="0" y="0" width="78.8693" height="75.8881" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+<feOffset dy="1"/>
+<feGaussianBlur stdDeviation="0.5"/>
+<feComposite in2="hardAlpha" operator="out"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_0_51"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_0_51" result="shape"/>
+</filter>
+<path id="stroke0_0_51" d="M39.4346 2C42.0338 2 44.3373 3.67361 45.1407 6.14551L50.9776 24.1113H69.8682C72.4676 24.1113 74.772 25.7857 75.5753 28.2578C76.3782 30.7297 75.4982 33.4381 73.3956 34.9658L58.1124 46.0684L63.9503 64.0342C64.7535 66.5062 63.8733 69.2143 61.7706 70.7422C59.6677 72.2701 56.8198 72.2701 54.7169 70.7422L39.4346 59.6387L24.1524 70.7422C22.0495 72.2701 19.2016 72.2701 17.0987 70.7422C14.996 69.2143 14.1158 66.5062 14.919 64.0342L20.7559 46.0684L5.47371 34.9658C3.37105 33.4381 2.49111 30.7297 3.29402 28.2578C4.09727 25.7857 6.40169 24.1113 9.00105 24.1113H27.8917L33.7286 6.14551L33.8077 5.91602C34.6756 3.57049 36.9166 2 39.4346 2Z"/>
+</defs>
+</svg>

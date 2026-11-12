@@ -1,176 +1,422 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
+
 <head>
-    <title>Portofolio</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="main.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>M. Thoriq — Independent Visual Designer & Engineer</title>
+  <meta name="description"
+    content="I make identities with personality, digital experiences with clarity, and the occasional idea that needs a little code.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body class="min-h-screen w-full bg-amber-400 overflow-x-hidden">
-    <div class="md:bg-white bg-slate-50 rounded-lg text-white z-50 fixed md:top-0 bottom-0 md:w-52 w-fit md:h-[95dvh] flex justify-between mx-4 md:mx-5 my-5 hover:shadow-inner hover:shadow-black">
-        <div class="bg-gray-800 gap-5 ring md:ring-0 md:gap-0 md:w-full w-[91dvw] max-h-fit h-fit md:h-full md:flex-col flex justify-between hover:text-black hover:bg-transparent px-4 md:py-6 py-2 rounded-lg hover:shadow-inner hover:shadow-black">
-            <a class="rounded-full relative z-50 bg-sky-600 shadow-lg h-8 w-8 md:h-44 md:w-44 flex">
-                <span class="md:text-9xl text-xl absolute z-10 hover:cursor-default pointer-events-none my-auto p-0.5 mx-auto md:pt-3" id="kucing">🐱</span>
-            </a>
-            <div class="grid md:grid-rows-3 grid-flow-col text-sm gap-5 content-center font-extrabold md:text-3xl">
-                <a href="#"><span>&lt;/Biodata></span></a>
-                <a href="#projects"><span>&lt;/Project></span></a>
-                <a href="#contact"><span>&lt;/Contact></span></a>
-            </div>
-        </div>
+
+<body>
+
+  <!-- ==================== MOBILE NAV ==================== -->
+  <nav class="mobile-nav" id="mobileNav">
+    <button class="close-btn" onclick="closeMobileNav()">×</button>
+    <a href="#work" onclick="closeMobileNav()">Work</a>
+    <a href="#about" onclick="closeMobileNav()">About</a>
+    <a href="#work" onclick="closeMobileNav()">Process</a>
+    <a href="#contact" onclick="closeMobileNav()">Thoughts</a>
+    <div class="btn-wrapper">
+      <a href="#contact" class="btn-primary" onclick="closeMobileNav()">
+        Let's talk
+        <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
+      </a>
     </div>
-    <section id="#">
-    <div class="bg-gray-800 w-fit mx-2 md:mx-0 md:ml-64 h-fit rounded-lg my-5">
-        <section class="min-h-screen md:px-7 px-6 md:py-6 grid content-center items-center place-items-center self-center">
-          <div class="flex gap-2"><h1 class="my-auto md:text-6xl text-xl font-bold text-nowrap text-white">Hi there </h1><img class="md:w-28 md:h-28 w-10 h-10" src="kucing1.png" alt=""/></div>
-          <div class="flex gap-2 pb-3 overflow-y-hidden transition-all ease-in-out duration-100"><h1 class="text-white md:text-7xl text-2xl font-extrabold  transition-all ease-in-out duration-100" id="myself">I'm <span class="transition-all ease-in-out duration-100" id="aboutMe">Thoriq</span></h1><p class=" md:text-7xl text-2xl transition-all ease-in-out duration-100" id="me">👋</p></div>
-        </section>
-        <section class="relative md:px-7 px-6 md:py-6">
-          <div class="absolute drop-shadow-2xl -rotate-3 -left-6 -top-12 md:min-w-[102.6%] min-w-[105.6%] rounded-tl-xl rounded-br-xl before:bg-black h-20 bg-gradient-to-r from-blue-900 to-sky-500">
-            <marquee loop="infinite" scrollamount="50" class="text-white font-serif font-bold uppercase text-6xl py-2" direction="">Projects | Projects | Projects</marquee>
-          </div>
-          <div class="absolute -z-10 bg-blue-950 -left-5 -top-2 md:min-w-full before:bg-black h-20 "></div>
-          <div class="absolute -z-10 bg-blue-950 -right-1 -top-[5.3rem] md:min-w-full before:bg-black h-20 "></div>
-          <!-- <div class="absolute -rotate-3 -right-11 -top-14 md:min-w-full before:bg-black h-20 bg-blue-900"></div> -->
-          <!-- <div class="md:h-5 h-1 w-full my-8 rounded-md bg-slate-50"></div> -->
-          <h1 class="mt-5 text-5xl invisible font-bold w-full flex text-white"><p class="m-auto uppercase font-mono">Projects</p></h1>
-          <div class="md:grid-cols-2 grid gap-8 mt-5" id="projects">
-              <div class="relative bg-slate-50 m-auto mt-10 max-w-xl rounded-lg shadow-lg">
-                  <div class="absolute -top-5 -right-5 bg-sky-600 w-16 h-16 z-10 rounded-full text-5xl shadow-xl">😼</div>
-                  <img class="w-full" src="foto1.png" alt="Sunset in the mountains">
-                  <div class="px-6 py-4">
-                    <div class="font-bold md:text-2xl mb-2">FISCH : Fish log & Forecast</div>
-                    <p class="text-gray-700 md:text-lg text-medium ">
-                      FISCH is a mobile application that can help fishermen to record their catch and predict the best time to fish.
-                    </p>
-                  </div>
-                  <div class="px-6 pt-4 pb-2 grid">
-                    <button class="rounded text-white md:text-xl md:font-extrabold hover:bg-amber-600 bg-amber-500 px-4 py-2"><a href="https://github.com/M-Thoriq/FISCH">Visit</a></button>
-                  </div>
-              </div>
-              <div class="relative bg-slate-50 m-auto mt-10 max-w-xl rounded-lg shadow-lg">
-                  <div class="absolute -top-5 -right-5 bg-sky-600 w-16 h-16 z-10 rounded-full text-5xl shadow-xl">😼</div>
-                  <img class="w-full" src="foto3.png" alt="Sunset in the mountains">
-                  <div class="px-6 py-4">
-                    <div class="font-bold md:text-2xl mb-2">Github for Mobile</div>
-                    <p class="text-gray-700 md:text-lg text-medium ">
-                      Github App Android is a mobile application that can search github user and favorited them.
-                    </p>
-                  </div>
-                  <div class="px-6 pt-4 pb-2 grid">
-                    <button class="rounded text-white md:text-xl md:font-extrabold hover:bg-amber-600 bg-amber-500 px-4 py-2"><a href="https://github.com/M-Thoriq/GithubApp">Visit</a></button>
-                  </div>
-              </div>
-              <div class="relative bg-slate-50 m-auto mt-10 max-w-xl rounded-lg shadow-lg">
-                  <div class="absolute -top-5 -right-5 bg-sky-600 w-16 h-16 z-10 rounded-full text-5xl shadow-xl">😼</div>
-                  <img class="w-full" src="foto2.png" alt="Sunset in the mountains">
-                  <div class="px-6 py-4">
-                    <div class="font-bold md:text-2xl mb-2">Bloccy</div>
-                    <p class="text-gray-700 md:text-lg text-medium ">
-                      Bloccy is a simple android application for demonstration of recyclerview and cardview with detailed intent.
-                    </p>
-                  </div>
-                  <div class="px-6 pt-4 pb-2 grid">
-                    <button class="rounded text-white md:text-xl md:font-extrabold hover:bg-amber-600 bg-amber-500 px-4 py-2"><a href="https://github.com/M-Thoriq/BloccyRecycleView">Visit</a></button>
-                  </div>
-              </div>
-              <div class="relative bg-slate-50 m-auto mt-10 max-w-xl rounded-lg shadow-lg">
-                  <div class="absolute -top-5 -right-5 bg-sky-600 w-16 h-16 z-10 rounded-full text-5xl shadow-xl">😼</div>
-                  <img class="w-full" src="foto5.png" alt="Sunset in the mountains">
-                  <div class="px-6 py-4">
-                    <div class="font-bold md:text-2xl mb-2">SMANBI Library</div>
-                    <p class="text-gray-700 md:text-lg text-medium ">
-                      SMANBI Library is a local website for SMA Negeri Binjai Library for borrowing and returning books including log-ing fined books.
-                    </p>
-                  </div>
-                  <div class="px-6 pt-4 pb-2 grid">
-                    <button class="rounded text-white md:text-xl md:font-extrabold hover:bg-amber-600 bg-amber-500 px-4 py-2"><a href="https://github.com/M-Thoriq/SMANBI-Library">Visit</a></button>
-                  </div>
-              </div>
-              <div class="relative bg-slate-50 m-auto mt-10 max-w-xl rounded-lg shadow-lg">
-                  <div class="absolute -top-5 -right-5 bg-sky-600 w-16 h-16 z-10 rounded-full text-5xl shadow-xl">😼</div>
-                  <img class="w-full" src="foto4.png" alt="Sunset in the mountains">
-                  <div class="px-6 py-4">
-                    <div class="font-bold md:text-2xl mb-2">Text Editor (CLI)</div>
-                    <p class="text-gray-700 md:text-lg text-medium ">
-                      A simple CLI application based on C++ object-oriented with open, save, and edit features.
-                    </p>
-                  </div>
-                  <div class="px-6 pt-4 pb-2 grid">
-                    <button class="rounded text-white md:text-xl md:font-extrabold hover:bg-amber-600 bg-amber-500 px-4 py-2"><a href="https://github.com/M-Thoriq/OOP-Text-Editor-Mini-Project">Visit</a></button>
-                  </div>
-              </div>
-          </div>
-        </section>
-        <section class=" md:px-7 px-6 md:py-6">
+  </nav>
 
-          <div class="md:h-5 h-1 w-full my-8 rounded-md bg-slate-50 invisible"></div>
-          <h1 class="mt-5 text-5xl font-bold w-full flex text-white"><p class="m-auto uppercase font-mono">Contact</p></h1>
-          <div class="flex justify-center" id="contact">
-            <div class="flex gap-5 mt-5">
-                  <a href="https://github.com/M-Thoriq" target="_blank"><svg class="w-28 hover:fill-slate-500 fill-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-              viewBox="-143 145 512 512" xml:space="preserve">
-              <g>
-                <path d="M177.1,398.4c-8.6-1.5-17.6-1.3-26.4-0.8c-20,1.1-40,3-60,1.2c-9.5-0.9-19.1-1.8-28.7-1.6c-17.4,0.3-32,6-40.6,22.6
-                        c-4.3,8.2-5.3,17-5,26.1c0.7,25.6,11.8,40.2,36.2,47.5c19.6,5.8,39.7,6.6,59.9,6.2c7.5,0,15,0.4,22.5-0.1
-                        c15.5-0.9,30.7-3.2,45.4-8.6c15.2-5.6,24.3-16.3,27.6-31.8c1.3-6,1.9-12.3,1.8-18.4C209.6,420,195.6,401.5,177.1,398.4z
-                        M78.7,466.1c-6.5,7.1-15.9,7.2-22.6,0.3c-4.9-5-7.7-12.7-7.7-22.3c0.2-6.5,2.1-13.6,7.7-19.3c6.7-6.9,16.1-6.8,22.6,0.2
-                        C88.5,435.6,88.5,455.5,78.7,466.1z M169.6,466.6c-6.1,6.3-14.9,6.5-21.4,0.7c-11.2-10.2-11.2-32.9,0-43.2
-                        c6.4-5.9,15.2-5.7,21.4,0.6c5.7,5.8,7.6,13.1,7.9,20.9C177.2,453.5,175.2,460.7,169.6,466.6z"/>
-                    <path d="M329,145h-432c-22.1,0-40,17.9-40,40v432c0,22.1,17.9,40,40,40h432c22.1,0,40-17.9,40-40V185C369,162.9,351.1,145,329,145z
-                        M244.2,423.4c-1.4,11.4-3.8,23.1-7.9,33.8c-12,30.7-36,47.6-67.8,52.7c-18.2,2.9-36.9,3-57.1,4.5c-18.1-1.6-38-1.8-57.3-5.2
-                        c-37.4-6.6-62.8-32.8-70.2-70.3c-3.8-19.1-4.9-38.3,1-57.3c3.1-9.8,8.2-18.5,14.8-26.4c0.9-1,1.7-2.5,1.6-3.8
-                        c-1.1-17.2,0.9-34.2,6-50.6c4.2-13.7,1.1-12.9,16.3-8.9c18.3,4.8,34.3,14.7,50,25c1.8,1.2,4.6,1.7,6.8,1.3
-                        c22.2-3.4,44.3-3.6,66.5,0.3c1.6,0.3,3.7-0.3,5.2-1.2c13.5-8.8,27.4-16.7,42.6-22.2c5.5-2,11.3-3.3,16.9-5c2.5-0.7,3.6,0.2,4.5,2.6
-                        c6.8,19,9.6,38.5,8.6,58.6c-0.1,1.1,0.5,2.6,1.2,3.5C243,374.6,247.3,398.2,244.2,423.4z"/>
-                      </g>
-                  </svg></a>
-                  <a href="https://www.linkedin.com/in/mthoriqalasyjari" target="_blank"><svg class="hover:fill-blue-600 w-28 h-28 fill-white" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
-                    viewBox="-143 145 512 512" xml:space="preserve">
-                    <path d="M329,145h-432c-22.1,0-40,17.9-40,40v432c0,22.1,17.9,40,40,40h432c22.1,0,40-17.9,40-40V185C369,162.9,351.1,145,329,145z
-                        M41.4,508.1H-8.5V348.4h49.9V508.1z M15.1,328.4h-0.4c-18.1,0-29.8-12.2-29.8-27.7c0-15.8,12.1-27.7,30.5-27.7
-                        c18.4,0,29.7,11.9,30.1,27.7C45.6,316.1,33.9,328.4,15.1,328.4z M241,508.1h-56.6v-82.6c0-21.6-8.8-36.4-28.3-36.4
-                        c-14.9,0-23.2,10-27,19.6c-1.4,3.4-1.2,8.2-1.2,13.1v86.3H71.8c0,0,0.7-146.4,0-159.7h56.1v25.1c3.3-11,21.2-26.6,49.8-26.6
-                        c35.5,0,63.3,23,63.3,72.4V508.1z"/>
-                  </svg></a>
+  <!-- ==================== HERO / INTRODUCTION ==================== -->
+  <section class="section-intro" id="home">
+    <!-- Background: coastal study image with engrave shader -->
+    <div class="hero-bg">
+      <figure>
+        <video class="engrave-shader" src="assets/video/hero.mp4" data-intensity="0.28" data-line-density="135"
+          data-line-thickness="2" data-ink-color="#0e2e4d" muted loop autoplay playsinline>
+        </video>
+      </figure>
+    </div>
+    <!-- Bottom gradient fade -->
+    <div class="hero-gradient-fade">
+      <img src="assets/images/rectangle-gradient-1.svg" alt="">
+    </div>
+
+    <!-- Hero Desktop Content Wrapper (1440px grid) -->
+    <div class="hero-content-wrapper">
+      <!-- Header / Navigation -->
+      <header class="header">
+        <p class="header-title">Independent visual designer & engineer</p>
+
+        <nav class="nav-floating">
+          <a href="#work">Work</a>
+          <a href="#about">About</a>
+          <a href="#work">Process</a>
+          <a href="#contact">Thoughts</a>
+          <div class="btn-wrapper">
+            <a href="#contact" class="btn-primary">
+              Let's talk
+              <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
+            </a>
+          </div>
+        </nav>
+
+        <button class="mobile-menu-btn" onclick="openMobileNav()" aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </header>
+
+      <!-- Hero Composition -->
+      <div class="hero-composition">
+        <!-- Left: Introduction Copy -->
+        <div class="hero-copy">
+          <h1>Build the Unthinkable.</h1>
+          <p>I make identities with personality, digital experiences with clarity, and the occasional idea that needs a
+            little code. Or sometimes, i just build for fun.</p>
+          <div class="btn-wrapper">
+            <a href="#contact" class="btn-primary">
+              Let's talk
+              <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: Playful Portfolio Preview -->
+        <div class="hero-preview">
+          <!-- Identity Preview Card (yellow, tilted) -->
+          <div class="identity-card">
+            <div class="identity-card-inner">
+              <div class="poster-masthead">
+                <span class="label">A space for making</span>
+                <span class="vol">Vol. 01</span>
+              </div>
+              <div class="poster-title">
+                <div>soft</div>
+                <div>spot.</div>
+              </div>
+              <div class="poster-footer">
+                <div class="tagline">
+                  <div>Come as you are.</div>
+                  <div>Make what you feel.</div>
+                </div>
+                <span class="asterisk">*</span>
+              </div>
             </div>
+          </div>
+
+          <!-- Concept disclosure badge -->
+          <div class="concept-badge">Concept project / Soft spot</div>
+
+          <!-- Product Preview Card (white, tilted right) -->
+          <div class="product-card">
+            <div class="product-card-inner">
+              <div class="today-overview">
+                <p class="subtitle">A little care goes a long way.</p>
+                <p class="title">202X Resolutions</p>
+              </div>
+              <div class="care-tasks">
+                <div class="care-task orange">
+                  <div class="task-details">
+                    <p class="task-name">Blender</p>
+                    <p class="task-desc">Learn 3D for better future</p>
+                  </div>
+                  <span class="circle">○</span>
+                </div>
+                <div class="care-task blue">
+                  <div class="task-details">
+                    <p class="task-name">Gaming</p>
+                    <p class="task-desc">I want to develop a game!</p>
+                  </div>
+                  <span class="circle">○</span>
+                </div>
+                <div class="care-task green">
+                  <div class="task-details">
+                    <p class="task-name">Garden</p>
+                    <p class="task-desc">Want to start a gardening</p>
+                  </div>
+                  <span class="circle">○</span>
+                </div>
+              </div>
+              <p class="discover-text">Discover Today's Thoughts</p>
             </div>
-        </section>
+          </div>
+
+          <!-- Star decoration -->
+          <div class="star-decoration top-right">
+            <img src="assets/images/star-2.svg" alt="">
+          </div>
+
+          <!-- Pencil/union decoration -->
+          <div class="pencil-decoration">
+            <img src="assets/images/union-raster.svg" alt="">
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
+
+    <!-- Scroll invitation -->
+    <!-- <div class="scroll-invitation">
+      <span class="left">↓</span>
+      <span class="right">.</span>
+    </div> -->
+  </section>
+
+  <!-- ==================== ABOUT ==================== -->
+  <section class="about" id="about" aria-labelledby="about-title">
+    <div class="about__inner">
+
+      <div class="about__intro">
+        <p class="about__eyebrow">01 / A little about me</p>
+        <h2 class="about__title" id="about-title">Designer and<br>a little bit of coder</h2>
+
+        <!-- Decorative browser-tab strip -->
+        <div class="tabs" aria-hidden="true">
+          <img class="tabs__shape tabs__shape--blue" src="assets/images/tab-blue.svg" width="547.709" height="41.3381"
+            alt="">
+          <img class="tabs__shape tabs__shape--orange" src="assets/images/tab-orange.svg" width="328.858"
+            height="41.3381" alt="">
+          <img class="tabs__shape tabs__shape--green" src="assets/images/tab-green.svg" width="244.053" height="41.3381"
+            alt="">
+
+          <span class="tabs__label tabs__label--blue">
+            Lowkey Inspo
+            <span class="tabs__icon"><img src="assets/icons/cursor-icon.svg" width="7.05143" height="7.05143"
+                alt=""></span>
+          </span>
+          <span class="tabs__label tabs__label--orange">
+            How to be Rich
+            <span class="tabs__icon"><img src="assets/icons/chevron-orange.svg" width="7.05143" height="7.05143"
+                alt=""></span>
+          </span>
+          <span class="tabs__label tabs__label--green">
+            How to find Alien
+            <span class="tabs__icon"><img src="assets/icons/chevron-green.svg" width="7.05143" height="7.05143"
+                alt=""></span>
+          </span>
+          <img class="tabs__plus" src="assets/icons/chevron-blue.svg" width="13.3333" height="12" alt="">
+        </div>
+
+        <p class="about__text">
+          I’m a UIUX designer based in Indonesia working across graphic design and UI/UX @
+          <strong>Universitas Sumatera Utara</strong>. I like work that has something to say, and a considered way of
+          saying it.
+        </p>
+        <p class="about__text">
+          Sometimes I code, too. Not as a replacement for design, but as another way to explore an idea, understand a
+          constraint, or get a tiny detail just right. Right now, im interested on Jetpack Compose specially the CMP
+        </p>
+      </div>
+
+      <div class="visual">
+        <div class="visual__dashed"></div>
+
+        <!-- Exported group: 2 lighthouse layers (shader baked in), blue frame, 4 white handles -->
+        <img class="visual__gimmick" src="assets/images/Frame Gimmick.svg" width="306" height="827" alt="">
+        <p class="visual__frame-label">Frame 1422165900232</p>
+
+        <figure class="poster">
+          <figcaption class="poster__masthead"><span>2026</span><span>Oct</span></figcaption>
+          <!-- MISSING ASSET: export the poster photo (shader baked in) to assets/poster-photo.png -->
+          <img class="poster__photo" src="assets/images/photo-091.png" alt="Me at the dentist appointment">
+          <div class="poster__info"><span>Me at the dentist appointment</span><span class="poster__mark">∗</span></div>
+        </figure>
+
+        <div class="cursor">
+          <div class="cursor__rotate">
+            <img src="assets/images/figma-cursor.svg" width="63.9907" height="69.4328" alt="">
+          </div>
+        </div>
+
+        <!-- MISSING ASSET: assets/star.svg -->
+        <img class="visual__star" src="assets/images/star-2.svg" alt="">
+
+        <div class="selection" aria-hidden="true">
+          <span class="selection__bar selection__bar--left"></span>
+          <span class="selection__text">&nbsp;<span class="selection__word">thoriiiq</span><span
+              class="selection__dot">.</span>&nbsp;</span>
+          <span class="selection__bar selection__bar--right"></span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ==================== SELECTED WORK ==================== -->
+  <section class="section-work" id="work">
+    <!-- Pattern background -->
+    <div class="pattern-087">
+      <img src="assets/images/pattern-087.svg" alt="">
+    </div>
+
+    <div class="work__inner">
+      <!-- Intro -->
+      <div class="work-intro">
+        <div class="work-heading">
+          <p class="section-label">02 / Work and Explorations</p>
+          <h2>Different forms. Same curiosity.</h2>
+        </div>
+        <p class="work-desc">Three self initiated concepts, exploring how things look, feel, and work.</p>
+      </div>
+
+      <!-- Visual identity project -->
+      <div class="project-showcase" style="position:relative; z-index:1;">
+        <div class="project-collection">
+          <!-- Left: image -->
+          <div class="project-image-area">
+            <img src="assets/images/work-1-1.png" alt="Soft spot project">
+            <div class="project-image-overlay engrave-shader">
+              <img src="assets/images/dsc05796.png" alt="">
+            </div>
+          </div>
+
+          <!-- Right: identity content card -->
+          <div class="identity-content">
+            <h3>The Sustainable.</h3>
+
+            <!-- Small browser tab -->
+            <div class="identity-content-tab">
+              <div style="position:relative; display:inline-flex; align-items:center; gap:7px;">
+                <img src="assets/images/tab-small.svg" alt="" style="height:38px;">
+                <span
+                  style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:8px; font-weight:600; letter-spacing:-0.2px; color:#554d61; display:flex; align-items:center; gap:4px;">
+                  SDGs Center
+                  <img src="assets/icons/chevron-small.svg" alt="" style="width:3px; height:3px;">
+                </span>
+              </div>
+            </div>
+
+            <div class="project-footer">
+              <span class="org-name">University of North Sumatera</span>
+              <a href="#" class="visit-link">
+                <span>Visit Site</span>
+                <img src="assets/icons/arrow-up-right-alt.svg" alt="" width="16" height="16">
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Identity applications row -->
+        <div class="identity-applications">
+          <div class="identity-apps-col">
+            <!-- Workshop card -->
+            <div class="workshop-card">
+              <p class="label">Soft spot / Open studio</p>
+              <h4>Less perfect.<br>More play.</h4>
+              <p class="footnote">Paper, people & possibilities.</p>
+            </div>
+
+            <!-- Membership stationery -->
+            <div class="membership-card">
+              <div class="brand">
+                <div>soft</div>
+                <div>spot.</div>
+              </div>
+              <div class="member-details">
+                <p class="member-title">Space to belong.</p>
+                <div class="member-desc">
+                  <div>Community arts space</div>
+                  <div>Identity exploration</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Purple card -->
+            <div class="purple-card">
+              <div class="member-details">
+                <p class="member-title">Space to belong.</p>
+                <div class="member-desc">
+                  <div>Community arts space</div>
+                  <div>Identity exploration</div>
+                </div>
+              </div>
+              <div class="brand">
+                <div>soft</div>
+                <div>spot.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- And many more column -->
+          <div class="and-more-col">
+            <span class="and-more-text">and many more...</span>
+          </div>
+        </div>
+
+        <!-- Group 4 decoration -->
+        <div class="group-4-deco">
+          <img src="assets/images/group-4.svg" alt="">
+        </div>
+
+        <!-- Project information -->
+        <div class="project-info">
+          <div class="project-classification">
+            <span>Visual identity</span>
+            <span>Concept project</span>
+          </div>
+          <h3>Soft spot</h3>
+          <p>A welcoming identity for an imagined community arts space. Expressive type, gentle color, and a system that
+            leaves room to play.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CONTACT & FOOTER ==================== -->
+  <section class="section-contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact-invitation">
+        <div class="invitation-copy">
+          <p class="section-label">The next interesting thing starts with a hello.</p>
+          <h2>Have a wonderfully<br>odd idea?</h2>
+        </div>
+
+        <div class="contact-next">
+          <p>A new identity, a better digital experience, or something that doesn't quite fit a box. I'd love to hear
+            the
+            idea.</p>
+          <div class="btn-wrapper">
+            <a href="mailto:hello@thoriiiq.com" class="btn-primary">
+              Let's talk
+              <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-nav">
+          <span class="footer-brand">Independent visual designer & engineer</span>
+          <div class="footer-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#home">Back to top ↑</a>
+          </div>
+        </div>
+        <p class="footer-tagline">A little unexpected. Always intentional.</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="js/animations.js"></script>
+
+  <script src="js/shader-core.js"></script>
+  <script src="js/shaders-engrave.js"></script>
+  <script>ShaderFX.scan();</script>
 </body>
-<script>
-    const kucing = document.getElementById('kucing');
-    const arrayKucing = ['🐱', '😺', '😹','😸', '😻', '😼', '😽', '🙀', '😿', '😾'];
-    let i = 0;
-    setInterval(() => {
-        kucing.innerHTML = arrayKucing[i];
-        i++;
-        if (i === arrayKucing.length) i = 0;
-    }, 600);
-    const myself = document.getElementById('myself');
-const me = document.getElementById('me');
-const aboutMe = document.getElementById('aboutMe');
-const array = ['Thoriq', 'a Software Dev', 'a Cat (real)', 'a Student'];
-const arrMe = ['👋', '💻', '🐾', '🎓'];
-let j = 0;
-let isReversed = false;
 
-setInterval(() => {
-        me.classList.add('translate-y-20');
-        myself.classList.add('translate-y-20');
-        setTimeout(() => {
-            me.innerHTML = arrMe[j];
-            aboutMe.innerHTML = array[j];
-            me.classList.remove('translate-y-20');
-            myself.classList.remove('translate-y-20');
-        }, 1000);
-        j++;
-        if (j >= array.length) {
-            j = 0;
-        }
-
-    }, 2000);
-
-</script>
 </html>

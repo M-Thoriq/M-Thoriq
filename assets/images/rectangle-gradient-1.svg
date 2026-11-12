@@ -1,0 +1,21 @@
+<svg width="1440" height="96" viewBox="0 0 1440 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g filter="url(#inner-shadow)">
+        <path
+        d="M0 96.0021C0 96.0021 543.366 85.0697 594 64.0021C644.634 42.9346 664.159 0.353616 719 0.00212572C773.841 -0.349365 794.595 42.9774 846 64.0021C897.405 85.0268 1440 96.0021 1440 96.0021H0Z"
+        fill="#F3EDC6" />
+    </g>
+    <defs>
+        <filter id="inner-shadow">
+        <!-- Offset and blur the alpha channel -->
+        <feOffset dx="4" dy="4" />
+        <feGaussianBlur stdDeviation="5" result="offset-blur" />
+        <!-- Invert to keep only the inner area -->
+        <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+        <!-- Color the shadow -->
+        <feFlood flood-color="black" flood-opacity="0.5" result="color" />
+        <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+        <!-- Place shadow over original shape -->
+        <feComposite operator="over" in="shadow" in2="SourceGraphic" />
+        </filter>
+    </defs>
+</svg>
