@@ -934,8 +934,6 @@ a {
   overflow: hidden;
 }
 
-.engrave-shader {}
-
 .section-work::selection {
   color: #0a7aff;
   background-color: #f6de8e;
