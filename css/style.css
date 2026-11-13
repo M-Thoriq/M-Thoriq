@@ -155,15 +155,18 @@ a {
   /* Rasio video (1920 x 1258). Ganti jika hero.mp4 diganti dengan rasio lain. */
   --video-ar: calc(1920 / 1258);
   /* Titik fokus crop, seperti object-position. Hanya terasa saat layar lebih sempit
-     dari rasio video (portrait). fx: 0% = sisi kiri video, 100% = sisi kanan. */
+     dari rasio video (portrait). fx: 0% = sisi kiri video, 100% = sisi kanan.
+     fy: sisi yang dipertahankan saat video harus dipotong secara vertikal (100% = bawah/laut). */
   --hero-fx: 50%;
-  --hero-fy: 0%;
+  --hero-fy: 100%;
 
   position: absolute;
   top: -128px;
   left: 0;
   width: 100%;
-  height: 100%;
+  /* Sampai dasar hero. Sebelumnya height: 100% dengan top: -128px membuat kotak ini berakhir
+     128px sebelum dasar hero, sehingga strip krem muncul di bawah video di layar desktop. */
+  bottom: 0;
   z-index: 0;
   /* Menyediakan satuan cqw/cqh (ukuran kotak latar) untuk ukuran "cover" di bawah.
      Tidak memakai overflow: hidden agar tampilan desktop tidak berubah; .section-intro
@@ -1590,7 +1593,6 @@ a {
   /* Pergeseran -128px hanya untuk komposisi desktop. Di mobile latar harus menutup seluruh hero. */
   .hero-bg {
     top: 0;
-    --hero-fy: 50%;
   }
 
   .header-title {
