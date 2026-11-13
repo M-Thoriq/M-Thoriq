@@ -231,7 +231,7 @@ a {
   max-width: var(--max-content-width);
   margin: 0 auto;
   width: 100%;
-  padding: 0 clamp(24px, 5.5vw, 80px);
+  padding: 0 72px 0 72px;
   display: flex;
   flex-direction: column;
   gap: clamp(40px, 6vw, 72px);
@@ -315,7 +315,7 @@ a {
   font-weight: 500;
   line-height: 24px;
   color: var(--ink-primary);
-  max-width: 420px;
+  /* max-width: 420px; */
 }
 
 /* Hero Preview Canvas (600px wide reference) */
@@ -557,7 +557,7 @@ a {
   max-width: var(--max-content-width);
   margin: 0 auto;
   width: 100%;
-  padding: 0 clamp(24px, 5.5vw, 80px);
+  padding: 0 72px 0 72px;
   gap: clamp(40px, 4vw, 80px);
 }
 
@@ -685,7 +685,7 @@ a {
   line-height: 24px;
   font-weight: 400;
   color: var(--ink-primary);
-  max-width: 500px;
+  /* max-width: 500px; */
 }
 
 .about__text:last-of-type {
@@ -1527,7 +1527,7 @@ a {
 
   .about__inner {
     flex-direction: column;
-    align-items: center;
+    /* align-items: center; */
     gap: 120px;
   }
 
@@ -1593,6 +1593,14 @@ a {
 
 /* Mobile Devices */
 @media (max-width: 768px) {
+
+  .about__text {
+    margin: 24px 0 0 0;
+  }
+
+  .about__text:last-of-type {
+    margin: 0 0 24px 0;
+  }
 
   /* Pergeseran -128px hanya untuk komposisi desktop. Di mobile latar harus menutup seluruh hero. */
   .hero-bg {
