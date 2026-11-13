@@ -324,6 +324,7 @@ a {
   width: 600px;
   height: 520px;
   flex-shrink: 0;
+  margin-top: -40px;
 }
 
 /* Identity Preview Card (yellow poster) */
@@ -747,13 +748,13 @@ a {
 /* Soft spot poster */
 .poster {
   position: absolute;
-  left: 236px;
+  left: 212px;
   top: 29.47px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 193.32px;
-  height: 283.12px;
+  width: 264px;
+  height: fit-content;
   margin: 0;
   padding: 12px;
   background: #f6de8e;
@@ -761,6 +762,7 @@ a {
   color: var(--ink-primary);
   z-index: 4;
   overflow: hidden;
+  gap: 8px;
 }
 
 .poster__masthead {
@@ -772,19 +774,19 @@ a {
 }
 
 .poster__masthead span:first-child {
-  font-size: 7px;
+  font-size: 12px;
   font-weight: 600;
 }
 
 .poster__masthead span:last-child {
-  font-size: 6px;
+  font-size: 12px;
   color: var(--ink-muted);
 }
 
 .poster__photo {
   display: block;
   width: 100%;
-  height: 223px;
+  height: fit-content;
   object-fit: cover;
 }
 
@@ -796,7 +798,7 @@ a {
 }
 
 .poster__info span:first-child {
-  font-size: 7px;
+  font-size: 14px;
   line-height: 8px;
   font-weight: 500;
 }
@@ -1439,7 +1441,8 @@ a {
 .mobile-menu-btn {
   display: none;
   flex-shrink: 0;
-  margin-right: -10px; /* target 44px tanpa menggeser garis hamburger dari tepi konten */
+  margin-right: -10px;
+  /* target 44px tanpa menggeser garis hamburger dari tepi konten */
   background: none;
   border: none;
   cursor: pointer;
@@ -1590,6 +1593,7 @@ a {
 
 /* Mobile Devices */
 @media (max-width: 768px) {
+
   /* Pergeseran -128px hanya untuk komposisi desktop. Di mobile latar harus menutup seluruh hero. */
   .hero-bg {
     top: 0;
@@ -1632,9 +1636,9 @@ a {
   }
 
   .tabs {
-    transform: scale(0.68);
+    transform: scale(1);
     transform-origin: left top;
-    margin-bottom: -6px;
+    margin-bottom: 12px;
   }
 
   .visual {
@@ -1709,6 +1713,7 @@ a {
 
 /* Phones: komposisi hero dibuat ulang (di atas 640px kanvas desktop 600 x 520 masih muat) */
 @media (max-width: 640px) {
+
   /* Hero preview (phone)
      Kanvas desain 350 x 650 "unit". 1 unit = --u = lebar kolom / 350, jadi seluruh komposisi
      mengecil proporsional tanpa transform: scale(). Dengan begitu kotak layout ikut mengecil
@@ -1838,7 +1843,7 @@ a {
 /* Small Screens */
 @media (max-width: 480px) {
   .tabs {
-    transform: scale(0.55);
+    transform: scale(0.65);
   }
 
   .visual {
