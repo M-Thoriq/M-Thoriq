@@ -28,6 +28,8 @@
 }
 
 html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -101,12 +103,10 @@ a {
   cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   white-space: nowrap;
-}
-
-.btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background: #fff0b8;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .btn-primary img {
@@ -115,8 +115,24 @@ a {
   transition: transform 0.2s ease;
 }
 
-.btn-primary:hover img {
-  transform: translate(2px, -2px);
+/* Feedback saat jari menyentuh: berlaku di semua jenis input */
+.btn-primary:active {
+  transform: scale(0.97);
+  background: #fff0b8;
+  transition-duration: 0.1s;
+}
+
+/* Hover hanya untuk perangkat yang benar-benar punya hover (mouse/trackpad) */
+@media (hover: hover) and (pointer: fine) {
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff0b8;
+  }
+
+  .btn-primary:hover img {
+    transform: translate(2px, -2px);
+  }
 }
 
 /* ===================================================================
@@ -126,6 +142,7 @@ a {
   position: relative;
   width: 100%;
   min-height: 100vh;
+  min-height: 100svh;
   padding: 32px 0 64px 0;
   display: flex;
   flex-direction: column;
@@ -221,8 +238,10 @@ a {
   transition: color 0.2s ease;
 }
 
-.nav-floating a:hover {
-  color: var(--accent-green);
+@media (hover: hover) and (pointer: fine) {
+  .nav-floating a:hover {
+    color: var(--accent-green);
+  }
 }
 
 /* Hero Composition: Two Columns */
@@ -1385,11 +1404,16 @@ a {
    =================================================================== */
 .mobile-menu-btn {
   display: none;
+  flex-shrink: 0;
+  margin-right: -10px; /* target 44px tanpa menggeser garis hamburger dari tepi konten */
   background: none;
   border: none;
   cursor: pointer;
-  width: 32px;
-  height: 32px;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  width: 44px;
+  height: 44px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -1413,6 +1437,7 @@ a {
   left: 0;
   width: 100%;
   height: 100vh;
+  height: 100dvh;
   background: #fffdf6;
   z-index: 1000;
   flex-direction: column;
@@ -1553,48 +1578,6 @@ a {
     letter-spacing: -1.2px;
   }
 
-  .hero-preview {
-    width: 100%;
-    max-width: 360px;
-    height: 420px;
-    transform: scale(0.85);
-    transform-origin: center top;
-  }
-
-  .identity-card {
-    left: 0;
-    top: 0;
-  }
-
-  .identity-card-inner {
-    width: 260px;
-    height: 320px;
-    padding: 16px;
-  }
-
-  .poster-title {
-    font-size: 60px;
-    letter-spacing: -3px;
-  }
-
-  .product-card {
-    left: 140px;
-    top: 140px;
-  }
-
-  .product-card-inner {
-    width: 180px;
-    height: 250px;
-    padding: 14px;
-  }
-
-  .concept-badge {
-    left: 0;
-    bottom: 20px;
-    font-size: 12px;
-    padding: 6px 14px;
-  }
-
   /* About Mobile */
   .about {
     padding: 80px 0;
@@ -1678,12 +1661,136 @@ a {
   }
 }
 
-/* Small Screens */
-@media (max-width: 480px) {
+/* Phones: komposisi hero dibuat ulang (di atas 640px kanvas desktop 600 x 520 masih muat) */
+@media (max-width: 640px) {
+  /* Hero preview (phone)
+     Kanvas desain 350 x 650 "unit". 1 unit = --u = lebar kolom / 350, jadi seluruh komposisi
+     mengecil proporsional tanpa transform: scale(). Dengan begitu kotak layout ikut mengecil
+     (tidak ada ruang kosong di bawah) dan kartu tidak saling menimpa teks. */
   .hero-preview {
-    transform: scale(0.72);
+    --u: calc(100cqw / 350);
+    --c: calc(var(--u) * 0.92);
+    width: 100%;
+    max-width: 420px;
+    height: auto;
+    aspect-ratio: 350 / 650;
+    container-type: inline-size;
+    align-self: center;
   }
 
+  /* Poster kuning */
+  .identity-card {
+    left: calc(6 * var(--u));
+    top: calc(8 * var(--u));
+  }
+
+  .identity-card-inner {
+    width: calc(250 * var(--u));
+    height: calc(310 * var(--u));
+    padding: calc(16 * var(--u));
+  }
+
+  .poster-masthead {
+    font-size: calc(12 * var(--u));
+    line-height: calc(20 * var(--u));
+  }
+
+  .poster-title {
+    font-size: calc(64 * var(--u));
+    letter-spacing: calc(-4 * var(--u));
+  }
+
+  .poster-footer .tagline {
+    font-size: calc(13 * var(--u));
+    line-height: calc(15 * var(--u));
+  }
+
+  .poster-footer .asterisk {
+    font-size: calc(40 * var(--u));
+  }
+
+  /* Kartu putih: 92% dari ukuran desktop (--c). Semua nilai di dalamnya ikut diskalakan,
+     jadi teks tidak membungkus seperti sebelumnya. */
+  .product-card {
+    left: calc(146 * var(--u));
+    top: calc(316 * var(--u));
+  }
+
+  .product-card-inner {
+    width: calc(220 * var(--c));
+    height: calc(295 * var(--c));
+    padding: calc(18 * var(--c));
+    border-radius: calc(24 * var(--c));
+  }
+
+  .today-overview .subtitle {
+    font-size: calc(10 * var(--c));
+    line-height: calc(16 * var(--c));
+  }
+
+  .today-overview .title {
+    font-size: calc(16 * var(--c));
+    line-height: calc(24 * var(--c));
+    letter-spacing: calc(-0.8 * var(--c));
+  }
+
+  .care-tasks {
+    gap: calc(8 * var(--c));
+  }
+
+  .care-task {
+    gap: calc(8 * var(--c));
+    padding: calc(8 * var(--c)) calc(10 * var(--c));
+    border-radius: calc(8 * var(--c));
+  }
+
+  .care-task .task-name {
+    font-size: calc(12 * var(--c));
+    line-height: calc(16 * var(--c));
+  }
+
+  .care-task .task-desc {
+    font-size: calc(10 * var(--c));
+    line-height: calc(12 * var(--c));
+  }
+
+  .care-task .circle {
+    font-size: calc(16 * var(--c));
+    line-height: calc(24 * var(--c));
+  }
+
+  .discover-text {
+    font-size: calc(10 * var(--c));
+    line-height: calc(16 * var(--c));
+  }
+
+  /* Dekorasi: posisi relatif terhadap poster / kartu, sama seperti di desktop */
+  .pencil-decoration {
+    left: calc(82 * var(--u));
+    top: calc(53 * var(--u));
+    width: calc(71 * var(--u));
+    height: calc(82 * var(--u));
+  }
+
+  .star-decoration.top-right {
+    right: auto;
+    left: calc(169 * var(--u));
+    top: calc(367 * var(--u));
+    width: calc(73 * var(--c));
+    height: calc(70 * var(--c));
+  }
+
+  /* Badge di bawah komposisi supaya tidak menutupi teks kartu */
+  .concept-badge {
+    left: calc(6 * var(--u));
+    bottom: 0;
+    font-size: 12px;
+    padding: 6px 14px;
+  }
+}
+
+/* Small Screens */
+@media (max-width: 480px) {
   .tabs {
     transform: scale(0.55);
   }
