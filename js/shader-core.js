@@ -194,9 +194,18 @@ const ShaderFX = (() => {
 
     function draw() {
       if (!inst.texture) return;
-      const dpr = window.devicePixelRatio || 1;
-      const pw = Math.max(1, Math.round(inst.cssW * dpr));
-      const ph = Math.max(1, Math.round(inst.cssH * dpr));
+      // Batasi DPR dan jumlah piksel. Saat canvas dibuat "cover" di layar portrait, ukuran CSS-nya
+      // bisa jauh lebih besar dari layar; tanpa batas, iPhone (DPR 3) akan merender belasan juta piksel
+      // per frame. Anggaran bisa diubah per elemen lewat data-max-pixels.
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const budget = readNum(el, 'maxPixels', matchMedia('(pointer: coarse)').matches ? 2.5e6 : 6e6);
+      let pw = Math.max(1, Math.round(inst.cssW * dpr));
+      let ph = Math.max(1, Math.round(inst.cssH * dpr));
+      if (pw * ph > budget) {
+        const k = Math.sqrt(budget / (pw * ph));
+        pw = Math.max(1, Math.round(pw * k));
+        ph = Math.max(1, Math.round(ph * k));
+      }
       if (canvas.width !== pw || canvas.height !== ph) { canvas.width = pw; canvas.height = ph; }
 
       const c = {
