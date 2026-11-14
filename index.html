@@ -16,6 +16,18 @@
     href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
     rel="stylesheet">
 
+  <!-- Menentukan apakah loader tampil (kunjungan pertama dalam sesi). Harus berjalan sebelum CSS agar tidak ada kedipan. -->
+  <script>
+    (function () {
+      var d = document.documentElement;
+      d.classList.add('js');
+      try { if (!sessionStorage.getItem('siteLoaded')) d.classList.add('is-loading'); }
+      catch (e) { d.classList.add('is-loading'); }
+      // Pengaman: apa pun yang terjadi, halaman tidak boleh tertahan di loader
+      setTimeout(function () { d.classList.remove('is-loading'); }, 12000);
+    })();
+  </script>
+
   <!-- Styles -->
   <link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
   <link rel="stylesheet" href="css/style.css">
@@ -23,20 +35,55 @@
 
 <body>
 
-  <!-- ==================== MOBILE NAV ==================== -->
-  <nav class="mobile-nav" id="mobileNav">
-    <button class="close-btn" onclick="closeMobileNav()">×</button>
-    <a href="#work" onclick="closeMobileNav()">Work</a>
-    <a href="#about" onclick="closeMobileNav()">About</a>
-    <a href="#work" onclick="closeMobileNav()">Process</a>
-    <a href="#contact" onclick="closeMobileNav()">Thoughts</a>
-    <div class="btn-wrapper">
-      <a href="#contact" class="btn-primary" onclick="closeMobileNav()">
-        Let's talk
-        <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
-      </a>
+  <!-- ==================== LOADER (kunjungan pertama) ==================== -->
+  <div class="loader" id="loader" role="status" aria-live="polite" aria-label="Loading">
+    <div class="loader__layer loader__layer--blue"></div>
+    <div class="loader__layer loader__layer--yellow"></div>
+    <div class="loader__layer loader__layer--mint"></div>
+    <div class="loader__layer loader__layer--cream">
+      <div class="loader__content">
+        <div class="loader__top"><span>M. Thoriq</span><span>Loading assets</span></div>
+        <div>
+          <div class="loader__count" aria-hidden="true">
+            <span class="loader__num">0</span><span class="loader__pct">%</span>
+            <span class="loader__star">*</span>
+          </div>
+          <div class="loader__foot"><span>A little unexpected. Always intentional.</span></div>
+        </div>
+      </div>
+      <div class="loader__bar-track" aria-hidden="true"><span class="loader__bar"></span></div>
     </div>
-  </nav>
+  </div>
+
+  <!-- ==================== MOBILE NAV (layar penuh) ==================== -->
+  <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Main menu" inert>
+    <span class="mnav__layer mnav__layer--blue" aria-hidden="true"></span>
+    <span class="mnav__layer mnav__layer--yellow" aria-hidden="true"></span>
+    <span class="mnav__layer mnav__layer--mint" aria-hidden="true"></span>
+    <div class="mnav__panel">
+      <div class="mnav__inner">
+        <div class="mnav__top">
+          <span>Menu</span>
+          <button class="mnav__close" type="button" aria-label="Close menu"></button>
+        </div>
+        <nav class="mnav__links" aria-label="Main">
+          <a href="#work" style="--i:0"><span class="mnav__no">01</span><span class="mnav__mask"><span class="mnav__label">Work</span></span></a>
+          <a href="#about" style="--i:1"><span class="mnav__no">02</span><span class="mnav__mask"><span class="mnav__label">About</span></span></a>
+          <a href="#work" style="--i:2"><span class="mnav__no">03</span><span class="mnav__mask"><span class="mnav__label">Process</span></span></a>
+          <a href="#contact" style="--i:3"><span class="mnav__no">04</span><span class="mnav__mask"><span class="mnav__label">Thoughts</span></span></a>
+        </nav>
+        <div class="mnav__foot">
+          <div class="btn-wrapper">
+            <a href="#contact" class="btn-primary">
+              Let's talk
+              <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
+            </a>
+          </div>
+          <p>A little unexpected. Always intentional.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <!-- ==================== HERO / INTRODUCTION ==================== -->
   <section class="section-intro" id="home">
@@ -72,7 +119,8 @@
           </div>
         </nav>
 
-        <button class="mobile-menu-btn" onclick="openMobileNav()" aria-label="Open menu">
+        <button class="mobile-menu-btn" id="menuBtn" type="button" aria-label="Open menu" aria-haspopup="dialog"
+          aria-expanded="false" aria-controls="mobileNav">
           <span></span>
           <span></span>
           <span></span>
@@ -180,7 +228,7 @@
 
       <div class="about__intro">
         <p class="about__eyebrow">01 / A little about me</p>
-        <h2 class="about__title" id="about-title">Designer and a little bit of coder</h2>
+        <h2 class="about__title" id="about-title">Designer and<br>a little bit of coder</h2>
 
         <!-- Decorative browser-tab strip -->
         <div class="tabs" aria-hidden="true">
@@ -395,8 +443,7 @@
       <div class="case-hero__text">
         <p class="case-kicker">Visual identity · Concept project</p>
         <h2 class="case-title">Soft spot</h2>
-        <p class="case-lead">A welcoming identity for an imagined community arts space. Expressive type, gentle color,
-          and a
+        <p class="case-lead">A welcoming identity for an imagined community arts space. Expressive type, gentle color, and a
           system that leaves room to play.</p>
       </div>
       <figure class="case-hero__media">
@@ -411,22 +458,10 @@
 
     <!-- TODO: isi role, tahun, dan tools yang sebenarnya -->
     <dl class="case-meta">
-      <div>
-        <dt>Type</dt>
-        <dd>Visual identity</dd>
-      </div>
-      <div>
-        <dt>Status</dt>
-        <dd>Concept project</dd>
-      </div>
-      <div>
-        <dt>Role</dt>
-        <dd data-todo>Your role</dd>
-      </div>
-      <div>
-        <dt>Year</dt>
-        <dd data-todo>20XX</dd>
-      </div>
+      <div><dt>Type</dt><dd>Visual identity</dd></div>
+      <div><dt>Status</dt><dd>Concept project</dd></div>
+      <div><dt>Role</dt><dd data-todo>Your role</dd></div>
+      <div><dt>Year</dt><dd data-todo>20XX</dd></div>
     </dl>
 
     <section class="case-block" aria-labelledby="ss-system">
@@ -478,8 +513,7 @@
         <p class="case-kicker">SDGs Center · Concept project</p>
         <h2 class="case-title">The Sustainable.</h2>
         <!-- TODO: tulis 1-2 kalimat tentang ide, masalah, dan hasilnya -->
-        <p class="case-lead" data-todo>Write one or two sentences about the idea, the problem it explores, and what you
-          made.</p>
+        <p class="case-lead" data-todo>Write one or two sentences about the idea, the problem it explores, and what you made.</p>
       </div>
       <figure class="case-hero__media">
         <div class="identity-content">
@@ -506,22 +540,10 @@
     </header>
 
     <dl class="case-meta">
-      <div>
-        <dt>Organisation</dt>
-        <dd>University of North Sumatera</dd>
-      </div>
-      <div>
-        <dt>Status</dt>
-        <dd>Concept project</dd>
-      </div>
-      <div>
-        <dt>Role</dt>
-        <dd data-todo>Your role</dd>
-      </div>
-      <div>
-        <dt>Year</dt>
-        <dd data-todo>20XX</dd>
-      </div>
+      <div><dt>Organisation</dt><dd>University of North Sumatera</dd></div>
+      <div><dt>Status</dt><dd>Concept project</dd></div>
+      <div><dt>Role</dt><dd data-todo>Your role</dd></div>
+      <div><dt>Year</dt><dd data-todo>20XX</dd></div>
     </dl>
   </template>
 
@@ -538,22 +560,10 @@
       </figure>
     </header>
     <dl class="case-meta">
-      <div>
-        <dt>Type</dt>
-        <dd data-todo>Category</dd>
-      </div>
-      <div>
-        <dt>Status</dt>
-        <dd data-todo>Status</dd>
-      </div>
-      <div>
-        <dt>Role</dt>
-        <dd data-todo>Your role</dd>
-      </div>
-      <div>
-        <dt>Year</dt>
-        <dd data-todo>20XX</dd>
-      </div>
+      <div><dt>Type</dt><dd data-todo>Category</dd></div>
+      <div><dt>Status</dt><dd data-todo>Status</dd></div>
+      <div><dt>Role</dt><dd data-todo>Your role</dd></div>
+      <div><dt>Year</dt><dd data-todo>20XX</dd></div>
     </dl>
   </template>
 
@@ -599,10 +609,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/work.js"></script>
+  <script src="js/menu.js"></script>
 
   <script src="js/shader-core.js"></script>
   <script src="js/shaders-engrave.js"></script>
   <script>ShaderFX.scan();</script>
+  <script src="js/loader.js"></script>
 </body>
 
 </html>

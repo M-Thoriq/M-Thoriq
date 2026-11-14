@@ -20,10 +20,22 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ===================================================
      1. HERO SECTION - ENTRANCE ANIMATION (ON LOAD)
      =================================================== */
+  // Jika loader sedang tampil, animasi masuk hero ditahan sampai tirai mulai terbuka (event "loader:done").
+  const waitForLoader = document.documentElement.classList.contains('is-loading');
   const heroTL = gsap.timeline({
     defaults: { ease: 'power3.out' },
-    delay: 0.15
+    delay: 0.15,
+    paused: waitForLoader
   });
+
+  if (waitForLoader) {
+    document.addEventListener('loader:done', () => {
+      heroTL.play();
+      if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+    }, { once: true });
+    // Pengaman: jika event tidak pernah datang, mulai juga
+    setTimeout(() => heroTL.paused() && heroTL.play(), 13000);
+  }
 
   // Background fade & scale
   heroTL.from('.hero-bg', {

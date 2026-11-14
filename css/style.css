@@ -2115,41 +2115,458 @@ html.has-case {
   transition: all 0.3s;
 }
 
+/* ===================================================================
+   MOBILE MENU (layar penuh) + LOADER
+   Animasi murni CSS: kelas .is-open (menu) dan html.is-loading / .loader-leaving (loader).
+   Urutan lapisan "tirai" sama di keduanya: biru, kuning, mint, krem.
+   =================================================================== */
+:root {
+  --curtain-ease: cubic-bezier(0.76, 0, 0.24, 1);
+  --curtain-over: 14vh;
+  /* Tinggi lapisan = layar + bagian melengkung yang selalu berada di luar layar */
+  --curtain-h: calc(100vh + var(--curtain-over));
+}
+
+@supports (height: 100dvh) {
+  :root {
+    --curtain-h: calc(100dvh + var(--curtain-over));
+  }
+}
+
+html.has-menu,
+html.is-loading {
+  overflow: hidden;
+}
+
+/* ---------- Menu ---------- */
 .mobile-nav {
-  display: none;
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  height: 100dvh;
-  background: #fffdf6;
+  inset: 0;
   z-index: 1000;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+  overscroll-behavior: contain;
+  /* visibility baru disembunyikan setelah animasi tutup selesai */
+  transition: visibility 0s linear 1.1s;
 }
 
-.mobile-nav.active {
-  display: flex;
+.mobile-nav.is-open {
+  visibility: visible;
+  pointer-events: auto;
+  transition-delay: 0s;
 }
 
-.mobile-nav a {
-  font-size: 24px;
-  font-weight: 600;
-  color: var(--ink-primary);
+.mobile-nav.is-instant,
+.mobile-nav.is-instant * {
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
 }
 
-.mobile-nav .close-btn {
+@media (min-width: 769px) {
+  .mobile-nav {
+    display: none;
+  }
+}
+
+.mnav__layer,
+.mnav__panel {
   position: absolute;
-  top: 24px;
-  right: 24px;
-  background: none;
-  border: none;
-  font-size: 32px;
-  color: var(--ink-primary);
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--curtain-h);
+  background: var(--c, #fffdf6);
+  border-radius: 50% 50% 0 0 / var(--curtain-over) var(--curtain-over) 0 0;
+  transform: translateY(100%);
+  transition: transform 0.9s var(--curtain-ease);
+  /* urutan tutup: panel dulu, lapisan biru terakhir */
+  transition-delay: calc((3 - var(--k)) * 0.07s);
+  will-change: transform;
+}
+
+.mobile-nav.is-open .mnav__layer,
+.mobile-nav.is-open .mnav__panel {
+  transform: translateY(calc(var(--curtain-over) * -1));
+  /* urutan buka: biru dulu, panel terakhir */
+  transition-delay: calc(var(--k) * 0.07s);
+}
+
+.mnav__layer--blue {
+  --c: #c1d7ef;
+  --k: 0;
+}
+
+.mnav__layer--yellow {
+  --c: #f6de8e;
+  --k: 1;
+}
+
+.mnav__layer--mint {
+  --c: #c6e4bd;
+  --k: 2;
+}
+
+.mnav__panel {
+  --k: 3;
+  --c: #fffdf6;
+}
+
+/* Isi menu: area layar sebenarnya = di bawah bagian melengkung yang berada di luar layar */
+.mnav__inner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: var(--curtain-over);
+  display: flex;
+  flex-direction: column;
+  padding:
+    calc(16px + env(safe-area-inset-top, 0px)) clamp(20px, 6vw, 40px) calc(24px + env(safe-area-inset-bottom, 0px));
+}
+
+.mnav__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 44px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-muted);
+}
+
+.mnav__close {
+  all: unset;
+  box-sizing: border-box;
+  position: relative;
+  width: 44px;
+  height: 44px;
+  margin-right: -10px;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.mnav__close:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+.mnav__close::before,
+.mnav__close::after {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 21px;
+  width: 24px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--ink-primary);
+  transform: rotate(0deg) scaleX(0);
+  transition: transform 0.5s var(--ease-out-expo);
+}
+
+.mobile-nav.is-open .mnav__close::before {
+  transform: rotate(45deg) scaleX(1);
+  transition-delay: 0.55s;
+}
+
+.mobile-nav.is-open .mnav__close::after {
+  transform: rotate(-45deg) scaleX(1);
+  transition-delay: 0.62s;
+}
+
+.mnav__links {
+  display: flex;
+  flex-direction: column;
+  margin: auto 0;
+}
+
+.mnav__links a {
+  position: relative;
+  display: grid;
+  grid-template-columns: 36px 1fr;
+  align-items: baseline;
+  padding: clamp(10px, 2.2vh, 18px) 0;
+  color: var(--ink-primary);
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Garis pemisah tergambar dari kiri, sama dengan daftar proyek di section Work */
+.mnav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--work-line, rgba(85, 77, 97, 0.3));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.9s var(--ease-out-expo);
+}
+
+.mobile-nav.is-open .mnav__links a::after {
+  transform: scaleX(1);
+  transition-delay: calc(0.45s + var(--i) * 0.07s);
+}
+
+.mnav__no {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--ink-muted);
+  font-variant-numeric: tabular-nums;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.mobile-nav.is-open .mnav__no {
+  opacity: 1;
+  transition: opacity 0.6s ease calc(0.55s + var(--i) * 0.07s);
+}
+
+.mnav__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+
+.mnav__label {
+  display: block;
+  font-size: clamp(44px, 14vw, 76px);
+  font-weight: 600;
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  transform: translateY(115%);
+  transition: transform 0.35s ease;
+}
+
+.mobile-nav.is-open .mnav__label {
+  transform: none;
+  transition: transform 0.95s var(--ease-out-expo) calc(0.4s + var(--i) * 0.07s);
+}
+
+.mnav__links a:active .mnav__label {
+  color: var(--accent-blue);
+}
+
+.mnav__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav.is-open .mnav__foot {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.7s ease 0.85s, transform 0.9s var(--ease-out-expo) 0.85s;
+}
+
+.mnav__foot p {
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-muted);
+}
+
+/* ---------- Loader ---------- */
+.loader {
+  display: none;
+}
+
+html.is-loading .loader {
+  display: block;
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  overflow: hidden;
+}
+
+.loader__layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: var(--curtain-h);
+  background: var(--c, var(--bg-primary));
+  border-radius: 0 0 50% 50% / 0 0 var(--curtain-over) var(--curtain-over);
+  transition: transform 1.1s var(--curtain-ease);
+  /* keluar: krem dulu, biru terakhir */
+  transition-delay: calc((3 - var(--k)) * 0.08s);
+  will-change: transform;
+}
+
+.loader__layer--blue {
+  --c: #c1d7ef;
+  --k: 0;
+}
+
+.loader__layer--yellow {
+  --c: #f6de8e;
+  --k: 1;
+}
+
+.loader__layer--mint {
+  --c: #c6e4bd;
+  --k: 2;
+}
+
+.loader__layer--cream {
+  --c: var(--bg-primary);
+  --k: 3;
+}
+
+html.loader-leaving .loader__layer {
+  transform: translateY(-100%);
+}
+
+/* Konten loader berada di dalam lapisan krem, jadi ikut naik saat tirai terbuka */
+.loader__content {
+  position: absolute;
+  inset: 0 0 var(--curtain-over) 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding:
+    calc(24px + env(safe-area-inset-top, 0px)) clamp(20px, 6vw, 72px) calc(28px + env(safe-area-inset-bottom, 0px));
+  color: var(--ink-primary);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.loader.is-ready .loader__content {
+  opacity: 1;
+}
+
+.loader__top {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+}
+
+.loader__top span:last-child {
+  color: var(--ink-muted);
+  font-weight: 500;
+}
+
+.loader__count {
+  display: flex;
+  align-items: flex-end;
+  gap: clamp(8px, 2vw, 20px);
+  font-weight: 600;
+  line-height: 0.82;
+  letter-spacing: -0.06em;
+  font-variant-numeric: tabular-nums;
+}
+
+.loader__num {
+  font-size: clamp(96px, 30vw, 280px);
+}
+
+.loader__pct {
+  font-size: clamp(28px, 7vw, 72px);
+  letter-spacing: -0.04em;
+  padding-bottom: 0.1em;
+}
+
+/* Tanda bintang dari poster "soft spot", berputar pelan */
+.loader__star {
+  margin-left: auto;
+  align-self: flex-start;
+  font-size: clamp(40px, 9vw, 96px);
+  line-height: 1;
+  color: var(--accent-blue);
+  animation: loader-spin 6s linear infinite;
+}
+
+@keyframes loader-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loader__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--ink-muted);
+}
+
+.loader__bar-track {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: var(--curtain-over);
+  height: 3px;
+  background: rgba(85, 77, 97, 0.12);
+}
+
+.loader__bar {
+  display: block;
+  height: 100%;
+  background: var(--ink-primary);
+  transform-origin: left center;
+  transform: scaleX(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .mnav__layer,
+  .mnav__panel,
+  .mnav__label,
+  .mnav__links a::after,
+  .mnav__foot,
+  .mnav__close::before,
+  .mnav__close::after {
+    transition-duration: 0.01s;
+    transition-delay: 0s !important;
+  }
+
+  .mnav__label {
+    transform: none;
+  }
+
+  .mnav__links a::after {
+    transform: scaleX(1);
+  }
+
+  .mnav__no,
+  .mnav__foot {
+    opacity: 1;
+    transform: none;
+  }
+
+  .loader__star {
+    animation: none;
+  }
+
+  /* Loader: tanpa gerak, cukup memudar */
+  .loader__layer {
+    transition: none;
+  }
+
+  html.loader-leaving .loader__layer {
+    transform: none;
+  }
+
+  html.loader-leaving .loader {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+  }
 }
 
 /* ===================================================================
@@ -2241,6 +2658,14 @@ html.has-case {
 
 /* Mobile Devices */
 @media (max-width: 768px) {
+  /* Padding horizontal 72px (untuk desktop) terlalu lebar di HP: kolom konten tinggal ~246px di layar 390px.
+     Blok ini mengembalikan padding fluid sebelumnya hanya di layar <= 768px. Hapus jika memang disengaja. */
+  .hero-content-wrapper,
+  .about__inner {
+    padding-left: clamp(24px, 5.5vw, 80px);
+    padding-right: clamp(24px, 5.5vw, 80px);
+  }
+
 
   .about__text {
     margin: 24px 0 0 0;
