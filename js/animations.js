@@ -310,62 +310,27 @@ document.addEventListener('DOMContentLoaded', () => {
     duration: 0.8
   }, 0.2);
 
-  // Main project collection showcase
-  workTL.from('.project-collection', {
-    y: 50,
-    opacity: 0,
-    duration: 0.95
+  // Garis pemisah tergambar dari kiri, lalu baris proyek naik bergantian.
+  // clearProps: agar style inline tidak menimpa kelas .is-active / .is-hovering setelah animasi selesai.
+  workTL.from('.work-index', {
+    '--line': 0,
+    duration: 0.9,
+    clearProps: '--line'
   }, 0.3);
 
-  workTL.from('.project-image-area', {
-    x: -30,
-    opacity: 0,
-    duration: 0.8
-  }, 0.45);
-
-  workTL.from('.identity-content', {
-    x: 30,
-    opacity: 0,
-    duration: 0.8
-  }, 0.45);
-
-  // Identity application cards (workshop, membership, purple, and many more)
-  workTL.from('.workshop-card', {
+  workTL.from('.work-item', {
     y: 40,
     opacity: 0,
-    duration: 0.75
-  }, 0.6);
+    '--line': 0,
+    duration: 0.9,
+    stagger: 0.12,
+    clearProps: 'transform,opacity,--line'
+  }, 0.4);
 
-  workTL.from('.membership-card', {
-    y: 40,
+  workTL.from('.work-hint', {
     opacity: 0,
-    duration: 0.75
-  }, 0.72);
-
-  workTL.from('.purple-card', {
-    y: 40,
-    opacity: 0,
-    duration: 0.75
-  }, 0.84);
-
-  workTL.from('.and-more-col', {
-    opacity: 0,
-    x: 25,
-    duration: 0.8
+    duration: 0.6
   }, 0.9);
-
-  workTL.from('.group-4-deco', {
-    scale: 0,
-    opacity: 0,
-    duration: 0.6,
-    ease: 'back.out(2)'
-  }, 0.95);
-
-  workTL.from('.project-info', {
-    y: 30,
-    opacity: 0,
-    duration: 0.8
-  }, 0.8);
 
 
   /* ---------- C. CONTACT & FOOTER SECTION ---------- */

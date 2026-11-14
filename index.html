@@ -255,7 +255,7 @@
   </section>
 
   <!-- ==================== SELECTED WORK ==================== -->
-  <section class="section-work" id="work">
+  <section class="section-work" id="work" aria-labelledby="work-title">
     <!-- Pattern background -->
     <div class="pattern-087">
       <img src="assets/images/pattern-087.svg" alt="">
@@ -266,113 +266,296 @@
       <div class="work-intro">
         <div class="work-heading">
           <p class="section-label">02 / Work and Explorations</p>
-          <h2>Different forms. Same curiosity.</h2>
+          <h2 id="work-title">Different forms. Same curiosity.</h2>
         </div>
         <p class="work-desc">Three self initiated concepts, exploring how things look, feel, and work.</p>
       </div>
 
-      <!-- Visual identity project -->
-      <div class="project-showcase" style="position:relative; z-index:1;">
-        <div class="project-collection">
-          <!-- Left: image -->
-          <div class="project-image-area">
-            <img src="assets/images/work-1-1.png" alt="Soft spot project">
-            <div class="project-image-overlay engrave-shader">
-              <img src="assets/images/dsc05796.png" alt="">
-            </div>
-          </div>
+      <!--
+        INDEX PROYEK
+        Tambah proyek baru: salin satu <li class="work-item"> dan satu <template id="case-...">,
+        lalu samakan data-case dengan id template (case-<data-case>).
+        --case-bg = warna bilah di atas halaman detail, --tilt = kemiringan thumbnail di mobile.
+      -->
+      <ol class="work-index" id="workIndex">
 
-          <!-- Right: identity content card -->
-          <div class="identity-content">
-            <h3>The Sustainable.</h3>
+        <li class="work-item">
+          <button class="work-row" type="button" data-case="soft-spot" aria-haspopup="dialog"
+            style="--case-bg:#f6de8e; --tilt:-3deg;">
+            <span class="work-row__no">01</span>
+            <span class="work-row__title"><span class="roll" data-text="Soft spot">Soft spot</span></span>
+            <span class="work-row__meta"><span>Visual identity</span><span>Concept project</span></span>
+            <span class="work-row__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </span>
+            <span class="work-cover" aria-hidden="true" style="--cv-bg:#f6de8e;">
+              <span class="cv">
+                <span class="cv-top"><b>A space for making</b><i>Vol. 01</i></span>
+                <span class="cv-title">soft<br>spot.</span>
+                <span class="cv-foot">Come as you are.<br>Make what you feel.</span>
+              </span>
+            </span>
+          </button>
+        </li>
 
-            <!-- Small browser tab -->
-            <div class="identity-content-tab">
-              <div style="position:relative; display:inline-flex; align-items:center; gap:7px;">
-                <img src="assets/images/tab-small.svg" alt="" style="height:38px;">
-                <span
-                  style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:8px; font-weight:600; letter-spacing:-0.2px; color:#554d61; display:flex; align-items:center; gap:4px;">
-                  SDGs Center
-                  <img src="assets/icons/chevron-small.svg" alt="" style="width:3px; height:3px;">
-                </span>
-              </div>
-            </div>
+        <li class="work-item">
+          <button class="work-row" type="button" data-case="the-sustainable" aria-haspopup="dialog"
+            style="--case-bg:#c6e4bd; --tilt:3deg;">
+            <span class="work-row__no">02</span>
+            <span class="work-row__title"><span class="roll" data-text="The Sustainable.">The Sustainable.</span></span>
+            <span class="work-row__meta"><span>SDGs Center</span><span>Concept project</span></span>
+            <span class="work-row__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </span>
+            <span class="work-cover" aria-hidden="true" style="--cv-bg:#c6e4bd;">
+              <span class="cv cv--tab">
+                <span class="cv-tab">SDGs Center <i>×</i></span>
+                <span class="cv-title">The<br>Sustain&shy;able.</span>
+                <span class="cv-foot">University of North Sumatera</span>
+              </span>
+            </span>
+          </button>
+        </li>
 
-            <div class="project-footer">
-              <span class="org-name">University of North Sumatera</span>
-              <a href="#" class="visit-link">
-                <span>Visit Site</span>
-                <img src="assets/icons/arrow-up-right-alt.svg" alt="" width="16" height="16">
-              </a>
-            </div>
-          </div>
-        </div>
+        <!-- TODO: ganti dengan proyek ketiga Anda -->
+        <li class="work-item">
+          <button class="work-row" type="button" data-case="next-project" aria-haspopup="dialog"
+            style="--case-bg:#eaddff; --tilt:-2deg;">
+            <span class="work-row__no">03</span>
+            <span class="work-row__title"><span class="roll" data-text="Next project">Next project</span></span>
+            <span class="work-row__meta"><span>Category</span><span>Concept project</span></span>
+            <span class="work-row__arrow" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M7 17 17 7M9 7h8v8" />
+              </svg>
+            </span>
+            <span class="work-cover" aria-hidden="true" style="--cv-bg:#eaddff;">
+              <span class="cv">
+                <span class="cv-top"><b>Placeholder</b><i>03</i></span>
+                <span class="cv-title">Next<br>up.</span>
+                <span class="cv-foot">Replace with your<br>third project.</span>
+              </span>
+            </span>
+          </button>
+        </li>
+      </ol>
 
-        <!-- Identity applications row -->
-        <div class="identity-applications">
-          <div class="identity-apps-col">
-            <!-- Workshop card -->
-            <div class="workshop-card">
-              <p class="label">Soft spot / Open studio</p>
-              <h4>Less perfect.<br>More play.</h4>
-              <p class="footnote">Paper, people & possibilities.</p>
-            </div>
-
-            <!-- Membership stationery -->
-            <div class="membership-card">
-              <div class="brand">
-                <div>soft</div>
-                <div>spot.</div>
-              </div>
-              <div class="member-details">
-                <p class="member-title">Space to belong.</p>
-                <div class="member-desc">
-                  <div>Community arts space</div>
-                  <div>Identity exploration</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Purple card -->
-            <div class="purple-card">
-              <div class="member-details">
-                <p class="member-title">Space to belong.</p>
-                <div class="member-desc">
-                  <div>Community arts space</div>
-                  <div>Identity exploration</div>
-                </div>
-              </div>
-              <div class="brand">
-                <div>soft</div>
-                <div>spot.</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- And many more column -->
-          <div class="and-more-col">
-            <span class="and-more-text">and many more...</span>
-          </div>
-        </div>
-
-        <!-- Group 4 decoration -->
-        <div class="group-4-deco">
-          <img src="assets/images/group-4.svg" alt="">
-        </div>
-
-        <!-- Project information -->
-        <div class="project-info">
-          <div class="project-classification">
-            <span>Visual identity</span>
-            <span>Concept project</span>
-          </div>
-          <h3>Soft spot</h3>
-          <p>A welcoming identity for an imagined community arts space. Expressive type, gentle color, and a system that
-            leaves room to play.</p>
-        </div>
-      </div>
+      <p class="work-hint">
+        <span class="work-hint__fine">Hover a title to peek. Click to open the case.</span>
+        <span class="work-hint__touch">Tap a project to open the case.</span>
+      </p>
     </div>
   </section>
+
+  <!-- ==================== WORK: PREVIEW & CASE WINDOW ==================== -->
+  <!-- Kartu pratinjau yang mengikuti kursor (hanya mouse). Diisi oleh js/work.js -->
+  <div class="work-preview" id="workPreview" aria-hidden="true">
+    <div class="work-preview__stack"></div>
+    <span class="work-preview__badge">View</span>
+  </div>
+
+  <!-- Jendela studi kasus (dialog modal) -->
+  <div class="case" id="case" role="dialog" aria-modal="true" aria-labelledby="caseTitle" hidden>
+    <div class="case__bar">
+      <div class="case__tab">
+        <span class="case__tab-title" id="caseTitle"></span>
+        <button class="case__close" type="button" aria-label="Close project">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path d="M6 6l12 12M18 6 6 18" />
+          </svg>
+        </button>
+      </div>
+      <div class="case__nav">
+        <span class="case__count" aria-hidden="true"></span>
+        <button class="case__next" type="button">
+          <span>Next: <span class="case__next-title"></span></span>
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"
+            stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14M13 6l6 6-6 6" />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <div class="case__scroll">
+      <div class="case__content"></div>
+    </div>
+  </div>
+
+  <!-- Isi studi kasus per proyek. id = "case-" + data-case -->
+  <template id="case-soft-spot">
+    <header class="case-hero">
+      <div class="case-hero__text">
+        <p class="case-kicker">Visual identity · Concept project</p>
+        <h2 class="case-title">Soft spot</h2>
+        <p class="case-lead">A welcoming identity for an imagined community arts space. Expressive type, gentle color,
+          and a
+          system that leaves room to play.</p>
+      </div>
+      <figure class="case-hero__media">
+        <div class="project-image-area">
+          <img src="assets/images/work-1-1.png" alt="Soft spot project">
+          <div class="project-image-overlay engrave-shader">
+            <img src="assets/images/dsc05796.png" alt="">
+          </div>
+        </div>
+      </figure>
+    </header>
+
+    <!-- TODO: isi role, tahun, dan tools yang sebenarnya -->
+    <dl class="case-meta">
+      <div>
+        <dt>Type</dt>
+        <dd>Visual identity</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>Concept project</dd>
+      </div>
+      <div>
+        <dt>Role</dt>
+        <dd data-todo>Your role</dd>
+      </div>
+      <div>
+        <dt>Year</dt>
+        <dd data-todo>20XX</dd>
+      </div>
+    </dl>
+
+    <section class="case-block" aria-labelledby="ss-system">
+      <h3 class="case-h3" id="ss-system">The system in use</h3>
+      <div class="identity-applications">
+        <div class="identity-apps-col">
+          <div class="workshop-card">
+            <p class="label">Soft spot / Open studio</p>
+            <h4>Less perfect.<br>More play.</h4>
+            <p class="footnote">Paper, people &amp; possibilities.</p>
+          </div>
+          <div class="membership-card">
+            <div class="brand">
+              <div>soft</div>
+              <div>spot.</div>
+            </div>
+            <div class="member-details">
+              <p class="member-title">Space to belong.</p>
+              <div class="member-desc">
+                <div>Community arts space</div>
+                <div>Identity exploration</div>
+              </div>
+            </div>
+          </div>
+          <div class="purple-card">
+            <div class="member-details">
+              <p class="member-title">Space to belong.</p>
+              <div class="member-desc">
+                <div>Community arts space</div>
+                <div>Identity exploration</div>
+              </div>
+            </div>
+            <div class="brand">
+              <div>soft</div>
+              <div>spot.</div>
+            </div>
+          </div>
+        </div>
+        <div class="and-more-col">
+          <span class="and-more-text">and many more...</span>
+        </div>
+      </div>
+    </section>
+  </template>
+
+  <template id="case-the-sustainable">
+    <header class="case-hero">
+      <div class="case-hero__text">
+        <p class="case-kicker">SDGs Center · Concept project</p>
+        <h2 class="case-title">The Sustainable.</h2>
+        <!-- TODO: tulis 1-2 kalimat tentang ide, masalah, dan hasilnya -->
+        <p class="case-lead" data-todo>Write one or two sentences about the idea, the problem it explores, and what you
+          made.</p>
+      </div>
+      <figure class="case-hero__media">
+        <div class="identity-content">
+          <h3>The Sustainable.</h3>
+          <div class="identity-content-tab">
+            <div style="position:relative; display:inline-flex; align-items:center; gap:7px;">
+              <img src="assets/images/tab-small.svg" alt="" style="height:38px;">
+              <span
+                style="position:absolute; left:16px; top:50%; transform:translateY(-50%); font-size:8px; font-weight:600; letter-spacing:-0.2px; color:#554d61; display:flex; align-items:center; gap:4px;">
+                SDGs Center
+                <img src="assets/icons/chevron-small.svg" alt="" style="width:3px; height:3px;">
+              </span>
+            </div>
+          </div>
+          <div class="project-footer">
+            <span class="org-name">University of North Sumatera</span>
+            <a href="#" class="visit-link">
+              <span>Visit Site</span>
+              <img src="assets/icons/arrow-up-right-alt.svg" alt="" width="16" height="16">
+            </a>
+          </div>
+        </div>
+      </figure>
+    </header>
+
+    <dl class="case-meta">
+      <div>
+        <dt>Organisation</dt>
+        <dd>University of North Sumatera</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd>Concept project</dd>
+      </div>
+      <div>
+        <dt>Role</dt>
+        <dd data-todo>Your role</dd>
+      </div>
+      <div>
+        <dt>Year</dt>
+        <dd data-todo>20XX</dd>
+      </div>
+    </dl>
+  </template>
+
+  <template id="case-next-project">
+    <header class="case-hero">
+      <div class="case-hero__text">
+        <p class="case-kicker">Category · Concept project</p>
+        <h2 class="case-title">Next project</h2>
+        <p class="case-lead" data-todo>Placeholder. Duplicate this block for every project you want to show.</p>
+      </div>
+      <figure class="case-hero__media">
+        <!-- TODO: ganti dengan gambar proyek -->
+        <div class="case-placeholder" role="img" aria-label="Project image placeholder">Project image</div>
+      </figure>
+    </header>
+    <dl class="case-meta">
+      <div>
+        <dt>Type</dt>
+        <dd data-todo>Category</dd>
+      </div>
+      <div>
+        <dt>Status</dt>
+        <dd data-todo>Status</dd>
+      </div>
+      <div>
+        <dt>Role</dt>
+        <dd data-todo>Your role</dd>
+      </div>
+      <div>
+        <dt>Year</dt>
+        <dd data-todo>20XX</dd>
+      </div>
+    </dl>
+  </template>
 
   <!-- ==================== CONTACT & FOOTER ==================== -->
   <section class="section-contact" id="contact">
@@ -415,6 +598,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
   <script src="js/animations.js"></script>
+  <script src="js/work.js"></script>
 
   <script src="js/shader-core.js"></script>
   <script src="js/shaders-engrave.js"></script>
