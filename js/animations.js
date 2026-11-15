@@ -168,6 +168,9 @@ document.addEventListener('DOMContentLoaded', () => {
       ease: 'sine.inOut',
       delay: 0.2
     });
+
+    // Animasi masuk selesai: kartu dan stiker boleh diseret (js/hero-play.js)
+    document.dispatchEvent(new CustomEvent('hero:ready'));
   });
 
 

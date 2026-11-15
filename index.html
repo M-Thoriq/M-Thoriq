@@ -86,7 +86,7 @@
   </div>
 
   <!-- ==================== HERO / INTRODUCTION ==================== -->
-  <section class="section-intro" id="home">
+  <section class="section-intro" id="home" data-hero-play="on">
     <!-- Background: coastal study image with engrave shader -->
     <div class="hero-bg">
       <figure>
@@ -316,7 +316,7 @@
           <p class="section-label">02 / Work and Explorations</p>
           <h2 id="work-title">Different forms. Same curiosity.</h2>
         </div>
-        <p class="work-desc">Three self initiated concepts, exploring how things look, feel, and work.</p>
+        <p class="work-desc">Two self initiated concepts, exploring how things look, feel, and work.</p>
       </div>
 
       <!--
@@ -366,29 +366,6 @@
                 <span class="cv-tab">SDGs Center <i>×</i></span>
                 <span class="cv-title">The<br>Sustain&shy;able.</span>
                 <span class="cv-foot">University of North Sumatera</span>
-              </span>
-            </span>
-          </button>
-        </li>
-
-        <!-- TODO: ganti dengan proyek ketiga Anda -->
-        <li class="work-item">
-          <button class="work-row" type="button" data-case="next-project" aria-haspopup="dialog"
-            style="--case-bg:#eaddff; --tilt:-2deg;">
-            <span class="work-row__no">03</span>
-            <span class="work-row__title"><span class="roll" data-text="Next project">Next project</span></span>
-            <span class="work-row__meta"><span>Category</span><span>Concept project</span></span>
-            <span class="work-row__arrow" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"
-                stroke-linecap="round" stroke-linejoin="round">
-                <path d="M7 17 17 7M9 7h8v8" />
-              </svg>
-            </span>
-            <span class="work-cover" aria-hidden="true" style="--cv-bg:#eaddff;">
-              <span class="cv">
-                <span class="cv-top"><b>Placeholder</b><i>03</i></span>
-                <span class="cv-title">Next<br>up.</span>
-                <span class="cv-foot">Replace with your<br>third project.</span>
               </span>
             </span>
           </button>
@@ -547,25 +524,6 @@
     </dl>
   </template>
 
-  <template id="case-next-project">
-    <header class="case-hero">
-      <div class="case-hero__text">
-        <p class="case-kicker">Category · Concept project</p>
-        <h2 class="case-title">Next project</h2>
-        <p class="case-lead" data-todo>Placeholder. Duplicate this block for every project you want to show.</p>
-      </div>
-      <figure class="case-hero__media">
-        <!-- TODO: ganti dengan gambar proyek -->
-        <div class="case-placeholder" role="img" aria-label="Project image placeholder">Project image</div>
-      </figure>
-    </header>
-    <dl class="case-meta">
-      <div><dt>Type</dt><dd data-todo>Category</dd></div>
-      <div><dt>Status</dt><dd data-todo>Status</dd></div>
-      <div><dt>Role</dt><dd data-todo>Your role</dd></div>
-      <div><dt>Year</dt><dd data-todo>20XX</dd></div>
-    </dl>
-  </template>
 
   <!-- ==================== CONTACT & FOOTER ==================== -->
   <section class="section-contact" id="contact">
@@ -610,6 +568,7 @@
   <script src="js/animations.js"></script>
   <script src="js/work.js"></script>
   <script src="js/menu.js"></script>
+  <script src="js/hero-play.js"></script>
 
   <script src="js/shader-core.js"></script>
   <script src="js/shaders-engrave.js"></script>

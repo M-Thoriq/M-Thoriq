@@ -2570,6 +2570,52 @@ html.loader-leaving .loader__layer {
 }
 
 /* ===================================================================
+   HERO PLAY: kartu dan stiker yang bisa diseret (js/hero-play.js)
+   .hp-layer membungkus tiap elemen; yang digeser adalah pembungkusnya.
+   =================================================================== */
+.hp-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hp-layer > * {
+  pointer-events: auto;
+  cursor: grab;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  /* Scroll vertikal tetap milik browser; seret horizontal milik kartu */
+  touch-action: pan-y;
+}
+
+/* Stiker punya pointer-events: none di aturan dasarnya; spesifisitas dinaikkan agar menang */
+.hp-layer > .pencil-decoration,
+.hp-layer > .star-decoration.top-right {
+  pointer-events: auto;
+}
+
+.hp-layer.is-dragging > * {
+  cursor: grabbing;
+}
+
+/* Lapisan pengikut (badge): ikut bergerak bersama poster tetapi tidak bisa disentuh sendiri */
+.hp-layer--follow > * {
+  pointer-events: none;
+  cursor: auto;
+}
+
+.hp-layer.is-dragging {
+  will-change: transform;
+  filter: drop-shadow(0 18px 26px rgba(85, 77, 97, 0.28));
+}
+
+/* CSS transition bawaan kartu (0.3s) membuat gerak GSAP terasa tertinggal; tidak dipakai saat dipegang */
+.hp-layer.is-dragging > * {
+  transition: none;
+}
+
+/* ===================================================================
    RESPONSIVE BREAKPOINTS
    =================================================================== */
 
