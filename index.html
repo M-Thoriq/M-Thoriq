@@ -90,8 +90,9 @@
     <!-- Background: coastal study image with engrave shader -->
     <div class="hero-bg">
       <figure>
-        <video class="engrave-shader" data-src="assets/video/hero.mp4" data-src-mobile="assets/video/hero-mobile.mp4" data-intensity="0.4" data-line-density="150"
-          data-line-thickness="2" data-ink-color="#8ac2ff" muted loop autoplay playsinline>
+        <video class="ascii-shader" data-src="assets/video/hero.mp4" data-src-mobile="assets/video/hero@portrait.mp4"
+          data-thickness="60" data-density="72" data-white-texture="0" data-hover-radius="40" data-hover-reveal="100"
+          data-scramble-duration="0.9" data-scramble-rate="4" muted loop autoplay playsinline>
         </video>
       </figure>
       <!-- Memilih sumber video sebelum browser mulai mengunduh: layar sempit/portrait memakai video portrait.
@@ -590,7 +591,7 @@
   <script src="js/hero-play.js"></script>
 
   <script src="js/shader-core.js"></script>
-  <script src="js/shaders-engrave.js"></script>
+  <script src="js/shaders-ascii.js"></script>
   <script>ShaderFX.scan();</script>
   <script src="js/loader.js"></script>
 </body>

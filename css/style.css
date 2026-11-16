@@ -191,7 +191,7 @@ a {
 
 /* Jalur fallback (browser tanpa WebGPU): <video> asli tetap tampil.
    Sebelumnya height: 100% dengan width auto sehingga hanya bagian kiri yang terlihat. */
-.hero-bg video.engrave-shader {
+.hero-bg video {
   position: absolute;
   left: 0;
   top: 0;
@@ -2749,9 +2749,11 @@ html.loader-leaving .loader__layer {
     padding: 20px 0;
   }
 
+  /* Opsi 2 yang Anda pilih: 40px di layar 320px, 45px di 360px, 48,75px di 390px, maksimal 52px */
   .hero-copy h1 {
-    font-size: 36px;
-    letter-spacing: -1.2px;
+    font-size: clamp(40px, 12.5vw, 52px);
+    letter-spacing: -0.04em;
+    line-height: 1.05;
   }
 
   /* About Mobile */
@@ -2982,7 +2984,6 @@ html.loader-leaving .loader__layer {
     transform: scale(0.62);
   }
 
-  .hero-copy h1,
   .about__title,
   .work-heading h2,
   .invitation-copy h2 {

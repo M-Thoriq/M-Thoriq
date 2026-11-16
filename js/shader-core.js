@@ -102,7 +102,7 @@ const ShaderFX = (() => {
   /* ---------- pasang shader ke satu <img> / <video> ---------- */
   async function attach(el) {
     const def = defFor(el);
-    if (!def || el.dataset.fxAttached === '1') return;
+    if (!def || el.dataset.fxAttached) return;
     el.dataset.fxAttached = '1';
     const isVideo = el.tagName === 'VIDEO';
 
@@ -164,8 +164,51 @@ const ShaderFX = (() => {
     const inst = {
       el, canvas, texture: null, texW: 0, texH: 0, cssW: 1, cssH: 1,
       mx: 0, my: 0, h: 0, target: 0, raf: 0,
-      active: false, scheduled: false, visible: true, lastTime: -1
+      active: false, scheduled: false, visible: true, lastTime: -1, dead: false, trail: [], trailBreak: true
     };
+
+    // Batalkan shader dan tampilkan kembali elemen asli (mis. saat sumber 'tainted' cross-origin).
+    function fail(err) {
+      const tainted = err && err.name === 'SecurityError';
+      console.error('[fx] Shader dibatalkan, elemen asli ditampilkan kembali.' +
+        (tainted ? ' Penyebab: sumber cross-origin (tainted). Buka halaman lewat http://localhost atau https (bukan file://), ' +
+          'atau jika sumbernya di domain lain: tambahkan crossorigin="anonymous" dan pastikan server mengirim header CORS.' : ''), err);
+      inst.dead = true;
+      inst.active = false;
+      canvas.remove();
+      if (isVideo) {
+        ['position', 'left', 'top', 'width', 'height', 'opacity', 'pointerEvents', 'zIndex'].forEach(k => { el.style[k] = ''; });
+        el.play().catch(() => { });
+      } else {
+        el.style.display = '';
+      }
+      instances.delete(el);
+      el.dataset.fxAttached = 'failed';
+    }
+
+    // ---- Jejak kursor (untuk shader dengan def.trail = true, mis. efek scramble ASCII) ----
+    // Umur titik = selisih waktu sekarang dan t. Titik yang lebih tua dari "masa hidup" dibuang.
+    const trailLife = () => Math.min(Math.max(readNum(el, 'scrambleDuration', 0.9), 0.1), 2.5) + 0.05;
+    function pruneTrail(now) {
+      const life = trailLife();
+      while (inst.trail.length && now - inst.trail[0].t > life) inst.trail.shift();
+    }
+    function pushTrail(x, y) {
+      const now = performance.now() / 1000;
+      const last = inst.trail[inst.trail.length - 1];
+      const spacing = Math.max(8, readNum(el, 'hoverRadius', 120) * 0.3);
+      if (last && !inst.trailBreak) {
+        const dx = x - last.x, dy = y - last.y, dist = Math.hypot(dx, dy);
+        if (dist < spacing * 0.5) { last.t = now; return; }
+        // Isi titik di sepanjang lintasan agar jejak tidak bolong saat kursor bergerak cepat.
+        const n = Math.max(1, Math.round(dist / spacing));
+        for (let i = 1; i <= n; i++) inst.trail.push({ x: last.x + dx * i / n, y: last.y + dy * i / n, t: now });
+      } else {
+        inst.trail.push({ x, y, t: now });
+      }
+      inst.trailBreak = false;
+      while (inst.trail.length > 32) inst.trail.shift();
+    }
 
     const TEX_USAGE = GPUTextureUsage.TEXTURE_BINDING | GPUTextureUsage.COPY_DST | GPUTextureUsage.RENDER_ATTACHMENT;
 
@@ -194,7 +237,7 @@ const ShaderFX = (() => {
     }
 
     function draw() {
-      if (!inst.texture) return;
+      if (!inst.texture || inst.dead) return;
       // Batasi DPR dan jumlah piksel. Saat canvas dibuat "cover" di layar portrait, ukuran CSS-nya
       // bisa jauh lebih besar dari layar; tanpa batas, iPhone (DPR 3) akan merender belasan juta piksel
       // per frame. Anggaran bisa diubah per elemen lewat data-max-pixels.
@@ -209,9 +252,12 @@ const ShaderFX = (() => {
       }
       if (canvas.width !== pw || canvas.height !== ph) { canvas.width = pw; canvas.height = ph; }
 
+      const now = performance.now() / 1000;
+      pruneTrail(now);
       const c = {
         img: el, el, cssW: inst.cssW, cssH: inst.cssH, pxW: pw, pxH: ph,
         texW: inst.texW, texH: inst.texH, mx: inst.mx, my: inst.my, h: inst.h,
+        trail: inst.trail, now, scrambleDuration: trailLife() - 0.05,
         num: (key, fb) => readNum(el, key, fb),
         color: (key, fb) => readColor(el, key, fb),
       };
@@ -251,13 +297,13 @@ const ShaderFX = (() => {
       if (!inst.active) return;
       if (el.readyState >= 2 && el.currentTime !== inst.lastTime) {
         inst.lastTime = el.currentTime;
-        uploadVideoFrame();
+        try { uploadVideoFrame(); } catch (e) { fail(e); return; }
         draw();
       }
       schedule();
     }
     function setActive(on) {
-      if (!isVideo || on === inst.active) return;
+      if (!isVideo || inst.dead || on === inst.active) return;
       inst.active = on;
       if (on) { el.play().catch(() => { }); schedule(); }
       else el.pause();
@@ -273,7 +319,7 @@ const ShaderFX = (() => {
       } else {
         try { await el.decode(); } catch (e) { }
       }
-      await uploadTexture();
+      try { await uploadTexture(); } catch (e) { fail(e); return; }
       const [w, h] = sizeOf(el, isVideo);
       if (w && h) { canvas.style.aspectRatio = w + ' / ' + h; canvas.style.setProperty('--video-ar', String(w / h)); }
       draw();
@@ -287,17 +333,46 @@ const ShaderFX = (() => {
         inst.h += (inst.target - inst.h) * 0.18;
         if (Math.abs(inst.target - inst.h) < 0.005) inst.h = inst.target;
         draw();
-        if (inst.h !== inst.target) inst.raf = requestAnimationFrame(tick);
+        if (!inst.dead && (inst.h !== inst.target || inst.trail.length)) inst.raf = requestAnimationFrame(tick);
       };
       const kick = () => { if (!inst.raf) inst.raf = requestAnimationFrame(tick); };
-      canvas.addEventListener('pointermove', e => {
-        const r = canvas.getBoundingClientRect();
-        inst.mx = e.clientX - r.left;
-        inst.my = e.clientY - r.top;
-        inst.target = 1;
-        kick();
-      });
-      canvas.addEventListener('pointerleave', () => { inst.target = 0; kick(); });
+      // Didengarkan di window (bukan di canvas) agar hover tetap jalan walau canvas tertutup
+      // konten lain (teks, tombol) di atas background hero.
+      // Area "terlihat" dipotong oleh ancestor ber-overflow, karena pada mode cover canvas
+      // lebih besar dari .hero-bg dan bagian yang terpotong tidak boleh memicu hover.
+      const visibleBox = () => {
+        const full = canvas.getBoundingClientRect();
+        let l = full.left, t = full.top, r = full.right, b = full.bottom;
+        for (let p = canvas.parentElement; p && p !== document.documentElement; p = p.parentElement) {
+          const cs = getComputedStyle(p);
+          if (cs.overflowX === 'visible' && cs.overflowY === 'visible') continue;
+          const pr = p.getBoundingClientRect();
+          l = Math.max(l, pr.left); t = Math.max(t, pr.top);
+          r = Math.min(r, pr.right); b = Math.min(b, pr.bottom);
+        }
+        return { full, l, t, r, b };
+      };
+      const trailOn = () => def.trail && el.dataset.scramble !== 'off';
+      const release = () => {
+        if (inst.target !== 0) {
+          if (trailOn()) pushTrail(inst.mx, inst.my);   // titik terakhir mulai "memudar" dari sini
+          inst.trailBreak = true;                        // masuk lagi di tempat lain: jangan disambung
+          inst.target = 0; kick();
+        }
+      };
+      window.addEventListener('pointermove', e => {
+        if (inst.dead || el.dataset.hover === 'off') return;
+        const v = visibleBox();
+        const inside = e.clientX >= v.l && e.clientX <= v.r && e.clientY >= v.t && e.clientY <= v.b;
+        if (inside) {
+          inst.mx = e.clientX - v.full.left;
+          inst.my = e.clientY - v.full.top;
+          inst.target = 1;
+          if (trailOn()) pushTrail(inst.mx, inst.my);
+          kick();
+        } else release();
+      }, { passive: true });
+      document.documentElement.addEventListener('pointerleave', release);
     }
 
     new ResizeObserver(entries => {
@@ -307,7 +382,7 @@ const ShaderFX = (() => {
       draw();
     }).observe(canvas);
 
-    await uploadTexture();
+    try { await uploadTexture(); } catch (e) { fail(e); return; }
     instances.set(el, inst);
     draw();
 
@@ -348,6 +423,7 @@ const ShaderFX = (() => {
       const onOk = async () => {
         cleanup();
         const inst = instances.get(el);
+        if (!inst && el.dataset.fxAttached === 'failed') delete el.dataset.fxAttached;
         if (inst) await inst.reload(); else await attach(el);
         resolve();
       };
