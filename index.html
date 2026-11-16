@@ -90,10 +90,29 @@
     <!-- Background: coastal study image with engrave shader -->
     <div class="hero-bg">
       <figure>
-        <video class="engrave-shader" src="assets/video/hero.mp4" data-intensity="0.4" data-line-density="150"
+        <video class="engrave-shader" data-src="assets/video/hero.mp4" data-src-mobile="assets/video/hero-mobile.mp4" data-intensity="0.4" data-line-density="150"
           data-line-thickness="2" data-ink-color="#8ac2ff" muted loop autoplay playsinline>
         </video>
       </figure>
+      <!-- Memilih sumber video sebelum browser mulai mengunduh: layar sempit/portrait memakai video portrait.
+           Jika file mobile gagal dimuat, otomatis kembali ke video desktop. -->
+      <script>
+        (function () {
+          var v = document.querySelector('.hero-bg video[data-src]');
+          if (!v) return;
+          var main = v.getAttribute('data-src');
+          var mobile = v.getAttribute('data-src-mobile');
+          var narrow = matchMedia('(max-width: 768px), (orientation: portrait) and (max-width: 1200px)').matches;
+          if (narrow && mobile) {
+            v.addEventListener('error', function () {
+              if (v.getAttribute('src') !== main) { v.setAttribute('src', main); v.load(); }
+            }, { once: true });
+            v.setAttribute('src', mobile);
+          } else {
+            v.setAttribute('src', main);
+          }
+        })();
+      </script>
     </div>
     <!-- Bottom gradient fade -->
     <div class="hero-gradient-fade">

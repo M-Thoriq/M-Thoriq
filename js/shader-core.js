@@ -140,6 +140,7 @@ const ShaderFX = (() => {
     canvas.style.maxWidth = '100%';
     canvas.style.height = 'auto';
     canvas.style.aspectRatio = w0 + ' / ' + h0;
+    canvas.style.setProperty('--video-ar', String(w0 / h0));   // dipakai CSS "cover" di .hero-bg; selalu sama dengan video yang dimuat
     canvas.dataset.fxCanvas = '1';
     el.after(canvas);
     if (isVideo) {
@@ -274,7 +275,7 @@ const ShaderFX = (() => {
       }
       await uploadTexture();
       const [w, h] = sizeOf(el, isVideo);
-      if (w && h) canvas.style.aspectRatio = w + ' / ' + h;
+      if (w && h) { canvas.style.aspectRatio = w + ' / ' + h; canvas.style.setProperty('--video-ar', String(w / h)); }
       draw();
       if (isVideo && inst.active) { el.play().catch(() => { }); schedule(); }
     };

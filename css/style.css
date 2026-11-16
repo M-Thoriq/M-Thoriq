@@ -2605,9 +2605,15 @@ html.loader-leaving .loader__layer {
   cursor: auto;
 }
 
-.hp-layer.is-dragging {
+.hp-layer.is-dragging,
+.hp-layer.is-armed {
   will-change: transform;
   filter: drop-shadow(0 18px 26px rgba(85, 77, 97, 0.28));
+}
+
+/* Mode "hold": sebelum terangkat, sentuhan biasa harus bebas men-scroll ke segala arah */
+[data-hero-touch="hold"] .hp-layer > * {
+  touch-action: manipulation;
 }
 
 /* CSS transition bawaan kartu (0.3s) membuat gerak GSAP terasa tertinggal; tidak dipakai saat dipegang */

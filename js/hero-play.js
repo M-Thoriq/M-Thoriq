@@ -8,6 +8,9 @@
  * tidak berebut properti transform.
  *
  * Mematikan fitur: ubah data-hero-play="on" menjadi "off" pada <section id="home">.
+ * Mode sentuh (data-hero-touch pada <section id="home">):
+ *   "swipe" (bawaan): geser horizontal menyeret kartu, geser vertikal men-scroll halaman.
+ *   "hold": tahan kartu sebentar untuk mengangkatnya, baru bisa diseret; geser biasa selalu men-scroll halaman.
  * Menautkan kartu ke proyek nanti: beri atribut data-open-case="id-proyek" pada kartu;
  * klik tanpa geser akan mengirim event "hero:open-case" (detail: { id, from }).
  */
@@ -25,6 +28,10 @@
   const DRAG_THRESHOLD = 6;     // px sebelum gerakan dianggap seret, bukan klik
   const FRICTION_MS = 230;      // konstanta waktu peluruhan inersia
   const BOUNCE = 0.5;           // sisa kecepatan setelah memantul di tepi
+  const SWIPE_RATIO = 1.4;      // mode swipe: gerak harus minimal segini kali lebih horizontal daripada vertikal
+  const HOLD_MS = 230;          // mode hold: lama menahan sebelum kartu terangkat
+  const HOLD_SLOP = 8;          // mode hold: bergeser lebih dari ini sebelum terangkat = scroll biasa
+  const holdMode = home.dataset.heroTouch === 'hold';
 
   // group "card": dua kartu bergantian di depan. group "sticker": selalu di atas kartu.
   const DEFS = [
@@ -56,6 +63,7 @@
       minX: 0, maxX: 0, minY: 0, maxY: 0,
       pid: null, sx: 0, sy: 0, ox: 0, oy: 0,
       moved: false, down: false, inertia: false, samples: [],
+      armed: false, abort: false, holdTimer: 0,
     };
   }).filter(Boolean);
   if (!items.length) return;
@@ -133,12 +141,12 @@
 
       // miring mengikuti kecepatan, kembali tegak saat diam; sedikit membesar saat dipegang
       const tiltTarget = reduce.matches ? 0 : clamp(it.vx * 7, -9, 9);
-      const scaleTarget = grabbed && !reduce.matches ? 1.04 : 1;
+      const scaleTarget = (grabbed || it.armed) && !reduce.matches ? 1.04 : 1;
       const s = 1 - Math.exp(-dt / 90);
       it.tilt += (tiltTarget - it.tilt) * s;
       it.scale += (scaleTarget - it.scale) * s;
 
-      const settled = !it.inertia && !grabbed && Math.abs(it.tilt) < 0.05 && Math.abs(it.scale - 1) < 0.002;
+      const settled = !it.inertia && !grabbed && !it.armed && Math.abs(it.tilt) < 0.05 && Math.abs(it.scale - 1) < 0.002;
       if (settled) { it.tilt = 0; it.scale = 1; }
       else active = true;
       paint(it);
@@ -155,22 +163,47 @@
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     interacted = true;
     it.down = true; it.moved = false; it.inertia = false; it.vx = it.vy = 0;
+    it.armed = false; it.abort = false;
     it.pid = e.pointerId; it.sx = e.clientX; it.sy = e.clientY; it.ox = it.x; it.oy = it.y;
     it.samples = [{ t: e.timeStamp, x: e.clientX, y: e.clientY }];
     setOrigin(it);   // titik putar miring = tengah elemen itu sendiri
     computeBounds(it);
     bringToFront(it);
     try { it.el.setPointerCapture(e.pointerId); } catch (err) { /* pointer sudah dilepas */ }
+    if (holdMode && e.pointerType === 'touch') {
+      it.holdTimer = setTimeout(() => {
+        it.armed = true;
+        it.layer.classList.add('is-armed');
+        if (navigator.vibrate) navigator.vibrate(8);
+        kick();
+      }, HOLD_MS);
+    }
   }
 
   function onMove(e, it) {
     if (!it.down || e.pointerId !== it.pid) return;
     const dx = e.clientX - it.sx, dy = e.clientY - it.sy;
+    if (it.abort) return;
     if (!it.moved) {
-      if (Math.hypot(dx, dy) < DRAG_THRESHOLD) return;
-      // Sentuhan: gerakan yang dimulai vertikal adalah scroll halaman (browser akan membatalkan pointer),
-      // jangan sempat menggeser kartu sedikit pun.
-      if (e.pointerType === 'touch' && Math.abs(dy) > Math.abs(dx)) return;
+      if (e.pointerType === 'touch') {
+        if (holdMode) {
+          // Belum terangkat: bergeser berarti pengunjung ingin scroll, jangan seret kartu
+          if (!it.armed) {
+            if (Math.hypot(dx, dy) > HOLD_SLOP) { clearTimeout(it.holdTimer); it.abort = true; }
+            return;
+          }
+        } else {
+          // Mode swipe: seret hanya jika niatnya jelas horizontal. Gerakan vertikal atau diagonal dibiarkan
+          // menjadi scroll halaman agar kartu dan halaman tidak pernah bergerak bersamaan.
+          if (Math.abs(dx) < DRAG_THRESHOLD + 2) return;
+          if (Math.abs(dx) < Math.abs(dy) * SWIPE_RATIO) {
+            if (Math.abs(dy) > DRAG_THRESHOLD * 2) it.abort = true;
+            return;
+          }
+        }
+      } else if (Math.hypot(dx, dy) < DRAG_THRESHOLD) {
+        return;
+      }
       it.moved = true;
       it.layer.classList.add('is-dragging');
     }
@@ -188,7 +221,9 @@
   function onUp(e, it, cancelled) {
     if (!it.down || e.pointerId !== it.pid) return;
     it.down = false;
-    it.layer.classList.remove('is-dragging');
+    clearTimeout(it.holdTimer);
+    it.armed = false;
+    it.layer.classList.remove('is-dragging', 'is-armed');
     if (it.moved && !cancelled && !reduce.matches) {
       const a = it.samples[0], b = it.samples[it.samples.length - 1];
       const span = Math.max(1, b.t - a.t);
@@ -214,6 +249,11 @@
     it.el.addEventListener('lostpointercapture', e => onUp(e, it, true));
     // Gambar/teks tidak boleh ikut terseret oleh browser
     it.el.addEventListener('dragstart', e => e.preventDefault());
+    it.el.addEventListener('contextmenu', e => { if (it.down) e.preventDefault(); });
+    // Saat kartu sedang diseret (atau terangkat), halaman tidak boleh ikut ter-scroll. Harus non-passive agar bisa dibatalkan.
+    it.el.addEventListener('touchmove', e => {
+      if ((it.moved || it.armed) && e.cancelable) e.preventDefault();
+    }, { passive: false });
   });
 
   // Jika layout berubah (rotasi layar, resize), kembalikan semua ke posisi awal
