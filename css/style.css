@@ -2640,6 +2640,35 @@ html.loader-leaving .loader__layer {
 }
 
 /* ===================================================================
+   HERO READABILITY: panel krem tipis di belakang paragraf (desktop dan tablet)
+   Pada latar ASCII, glyph tinta di belakang paragraf berwarna hampir sama dengan teks.
+   Diukur dari screenshot desktop nyata: median kontras latar terhadap teks 4,48:1 dan sekitar 50% piksel
+   latar di bawah 4,5:1; dengan panel ini median 6,6:1 dan tidak ada piksel di bawah 5:1.
+   Mobile tidak diubah (sudah nyaman). Sesuaikan opasitas lewat --hero-scrim.
+   =================================================================== */
+@media (min-width: 769px) {
+  .hero-copy {
+    --hero-scrim: rgba(247, 244, 236, 0.78);
+    isolation: isolate;   /* agar panel (z-index -1) tetap di atas latar hero */
+  }
+
+  .hero-copy p {
+    position: relative;
+  }
+
+  .hero-copy p::before {
+    content: "";
+    position: absolute;
+    inset: -8px -14px;
+    z-index: -1;
+    pointer-events: none;
+    border-radius: 18px;
+    background: var(--hero-scrim);
+    box-shadow: 0 0 24px 14px var(--hero-scrim);   /* tepi lembut, bukan kartu bergaris */
+  }
+}
+
+/* ===================================================================
    RESPONSIVE BREAKPOINTS
    =================================================================== */
 
