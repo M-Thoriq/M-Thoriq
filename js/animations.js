@@ -60,6 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
     ease: 'power4.out'
   }, 0.35);
 
+  // Efek "dekode" ASCII pada headline (js/hero-type.js); dilewati otomatis bila reduced-motion
+  heroTL.add(() => { if (window.HeroType) window.HeroType.scramble('.hero-copy h1'); }, 0.5);
+
   // Hero subtitle paragraph
   heroTL.from('.hero-copy p', {
     y: 30,

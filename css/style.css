@@ -2622,6 +2622,24 @@ html.loader-leaving .loader__layer {
 }
 
 /* ===================================================================
+   HERO TYPE: efek dekode ASCII pada headline (js/hero-type.js)
+   =================================================================== */
+.ht-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.ht-ch {
+  display: inline-block;
+  text-align: left;
+  transition: opacity 0.2s ease;
+}
+
+.ht-ch.is-scrambling {
+  opacity: 0.45;
+}
+
+/* ===================================================================
    RESPONSIVE BREAKPOINTS
    =================================================================== */
 
