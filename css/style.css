@@ -215,7 +215,7 @@ a {
   bottom: -6px;
   transform: translateX(-50%);
   height: auto;
-  z-index: 1;
+  z-index: 0;   /* sebelumnya 1; kini mengikuti urutan DOM agar wrapper hero (tanpa z-index) tetap di atasnya */
   pointer-events: none;
 }
 
@@ -227,7 +227,9 @@ a {
 /* Hero Desktop Content Wrapper (1440px grid) */
 .hero-content-wrapper {
   position: relative;
-  z-index: 10;
+  /* Sengaja tanpa z-index: wrapper yang membuat stacking context akan mengisolasi headline dari latar hero,
+     sehingga mix-blend-mode: difference pada h1 tidak melihat video. Urutan lapis dijaga lewat urutan DOM:
+     .hero-bg, lalu .hero-gradient-fade, lalu wrapper ini. */
   max-width: var(--max-content-width);
   margin: 0 auto;
   width: 100%;
@@ -303,11 +305,32 @@ a {
 }
 
 .hero-copy h1 {
-  font-size: clamp(40px, 4.2vw, 60px);
+  font-size: clamp(44px, 4vw, 60px);   /* 4 baris di 1280 sampai 1920 px (teks 68 karakter dalam kolom 540 px) */
   font-weight: 600;
-  line-height: 1;
-  letter-spacing: -2.4px;
+  line-height: 1.02;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
   color: var(--ink-primary);
+}
+
+/* Pada layar lebar (tata letak dua kolom), blok teks dinaikkan sedikit agar baris terakhir tidak jatuh di atas awan
+   bernada menengah, tempat efek difference paling lemah. Memakai top (bukan transform) supaya tidak membuat
+   stacking context yang akan mengisolasi headline dari latar. Diukur pada screenshot 1919x990: piksel teks dengan
+   kontras < 3:1 turun dari 9,1% ke sekitar 4%. */
+@media (min-width: 1201px) {
+  .hero-copy {
+    position: relative;
+    top: -4vh;
+  }
+}
+
+/* Headline memadukan warna dengan latar (video/shader di belakangnya): putih + difference = warna terbalik dari latar.
+   Hanya aktif jika browser mendukung; jika tidak, warna tinta biasa tetap dipakai. */
+@supports (mix-blend-mode: difference) {
+  .hero-copy h1 {
+    color: #fff;
+    mix-blend-mode: difference;
+  }
 }
 
 .hero-copy p {
@@ -2640,35 +2663,6 @@ html.loader-leaving .loader__layer {
 }
 
 /* ===================================================================
-   HERO READABILITY: panel krem tipis di belakang paragraf (desktop dan tablet)
-   Pada latar ASCII, glyph tinta di belakang paragraf berwarna hampir sama dengan teks.
-   Diukur dari screenshot desktop nyata: median kontras latar terhadap teks 4,48:1 dan sekitar 50% piksel
-   latar di bawah 4,5:1; dengan panel ini median 6,6:1 dan tidak ada piksel di bawah 5:1.
-   Mobile tidak diubah (sudah nyaman). Sesuaikan opasitas lewat --hero-scrim.
-   =================================================================== */
-@media (min-width: 769px) {
-  .hero-copy {
-    --hero-scrim: rgba(247, 244, 236, 0.78);
-    isolation: isolate;   /* agar panel (z-index -1) tetap di atas latar hero */
-  }
-
-  .hero-copy p {
-    position: relative;
-  }
-
-  .hero-copy p::before {
-    content: "";
-    position: absolute;
-    inset: -8px -14px;
-    z-index: -1;
-    pointer-events: none;
-    border-radius: 18px;
-    background: var(--hero-scrim);
-    box-shadow: 0 0 24px 14px var(--hero-scrim);   /* tepi lembut, bukan kartu bergaris */
-  }
-}
-
-/* ===================================================================
    RESPONSIVE BREAKPOINTS
    =================================================================== */
 
@@ -2796,9 +2790,9 @@ html.loader-leaving .loader__layer {
     padding: 20px 0;
   }
 
-  /* Opsi 2 yang Anda pilih: 40px di layar 320px, 45px di 360px, 48,75px di 390px, maksimal 52px */
+  /* Teks headline kini lebih panjang, jadi ukurannya disesuaikan agar tetap 4-5 baris di HP */
   .hero-copy h1 {
-    font-size: clamp(40px, 12.5vw, 52px);
+    font-size: clamp(32px, 9.5vw, 42px);
     letter-spacing: -0.04em;
     line-height: 1.05;
   }

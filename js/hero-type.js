@@ -13,7 +13,8 @@
   const GLYPHS = '#*+=:.';
   const reduce = matchMedia('(prefers-reduced-motion: reduce)');
   const SETTLE_START = 380;   // ms sebelum huruf pertama menetap
-  const SETTLE_STEP = 34;     // jeda antar huruf
+  const SETTLE_TOTAL = 950;   // ms total untuk seluruh huruf (teks panjang tidak boleh lebih lambat dari ini)
+  const SETTLE_STEP_MAX = 34; // jeda antar huruf untuk teks pendek
   const SWAP_MS = 55;         // seberapa sering glyph acak berganti
 
   const rand = (i, step) => {
@@ -63,8 +64,10 @@
       s.style.width = widths[i] + 'px';
       s.textContent = rand(i, 0);
       word.append(s);
-      chars.push({ s, ch, i, settleAt: SETTLE_START + chars.length * SETTLE_STEP, done: false });
+      chars.push({ s, ch, i, settleAt: 0, done: false });
     }
+    const step = Math.min(SETTLE_STEP_MAX, SETTLE_TOTAL / Math.max(chars.length, 1));
+    chars.forEach((c, n) => { c.settleAt = SETTLE_START + n * step; });
     el.setAttribute('aria-label', text);
     el.replaceChildren(frag);
 
