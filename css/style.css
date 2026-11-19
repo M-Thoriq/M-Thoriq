@@ -291,8 +291,10 @@ a {
 }
 
 .hero-copy {
+  height: -webkit-fill-available; 
   display: flex;
   flex-direction: column;
+  justify-content: end;
   gap: 24px;
   width: 540px;
   max-width: 50%;
