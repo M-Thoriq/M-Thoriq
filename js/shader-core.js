@@ -196,7 +196,11 @@ const ShaderFX = (() => {
     function pushTrail(x, y) {
       const now = performance.now() / 1000;
       const last = inst.trail[inst.trail.length - 1];
-      const spacing = Math.max(8, readNum(el, 'hoverRadius', 120) * 0.3);
+      // Jarak antar titik jejak. Bawaan: 30% dari hoverRadius (12 px untuk 40). Panjang maksimum jejak = 32 titik x jarak ini.
+      // data-trail-spacing (px) memperpanjang jejak; dibatasi 1.2 x hoverRadius agar lingkaran scramble (radius 0.8 x hoverRadius)
+      // antar titik tetap saling tumpang tindih dan jejak tidak bolong.
+      const hr = readNum(el, 'hoverRadius', 120);
+      const spacing = Math.min(Math.max(8, readNum(el, 'trailSpacing', hr * 0.3)), Math.max(8, hr * 1.2));
       if (last && !inst.trailBreak) {
         const dx = x - last.x, dy = y - last.y, dist = Math.hypot(dx, dy);
         if (dist < spacing * 0.5) { last.t = now; return; }
