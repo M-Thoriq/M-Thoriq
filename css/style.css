@@ -320,7 +320,7 @@ a {
 @media (min-width: 1201px) {
   .hero-copy {
     position: relative;
-    top: -4vh;
+    /* top: -4vh; */
   }
 }
 
@@ -2677,6 +2677,11 @@ html.loader-leaving .loader__layer {
   .hero-copy {
     width: 100%;
     max-width: 100%;
+    align-items: center;
+  }
+
+  .hero-copy h1 {
+    text-align: center;
   }
 
   .hero-preview {
