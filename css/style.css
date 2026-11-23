@@ -333,6 +333,11 @@ a {
   }
 }
 
+.hero-copy h1 {
+    color: #fff;
+    mix-blend-mode: difference;
+}
+
 .hero-copy p {
   font-size: 16px;
   font-weight: 500;
