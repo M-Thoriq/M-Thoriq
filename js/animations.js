@@ -201,6 +201,9 @@ document.addEventListener('DOMContentLoaded', () => {
     duration: 0.9
   }, 0.1);
 
+  // Judul About "didekode" dari glyph ASCII, sama dengan headline hero (js/hero-type.js)
+  aboutTL.add(() => { if (window.HeroType) window.HeroType.scramble('.about__title'); }, 0.25);
+
   // Browser tabs slide in with stagger
   aboutTL.from('.tabs__shape--green', {
     x: -30,

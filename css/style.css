@@ -291,10 +291,8 @@ a {
 }
 
 .hero-copy {
-  height: -webkit-fill-available; 
   display: flex;
   flex-direction: column;
-  justify-content: end;
   gap: 24px;
   width: 540px;
   max-width: 50%;
@@ -322,7 +320,7 @@ a {
 @media (min-width: 1201px) {
   .hero-copy {
     position: relative;
-    /* top: -4vh; */
+    top: -4vh;
   }
 }
 
@@ -2665,6 +2663,98 @@ html.loader-leaving .loader__layer {
 }
 
 /* ===================================================================
+   ABOUT CANVAS: dot grid + sorotan kursor, outline hover bergaya Figma, name tag kursor (js/about-canvas.js)
+   =================================================================== */
+.about::before,
+.about::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-size: 24px 24px;
+}
+
+/* Titik-titik dasar, seperti kanvas Figma */
+.about::before {
+  background-image: radial-gradient(circle, rgba(85, 77, 97, 0.16) 1.2px, transparent 1.7px);
+}
+
+/* Titik biru yang hanya terlihat di sekitar kursor (posisi lewat --mx/--my dari about-canvas.js) */
+.about::after {
+  background-image: radial-gradient(circle, rgba(10, 122, 255, 0.7) 1.5px, transparent 2px);
+  -webkit-mask-image: radial-gradient(circle 170px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+  mask-image: radial-gradient(circle 170px at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 100%);
+}
+
+.about__inner {
+  z-index: 1;
+}
+
+/* Outline hover: kotak biru + label ukuran */
+.fig-hover {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 9;
+  box-sizing: border-box;
+  border: 1.5px solid #0a7aff;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease,
+    transform 0.2s cubic-bezier(0.19, 1, 0.22, 1),
+    width 0.2s cubic-bezier(0.19, 1, 0.22, 1),
+    height 0.2s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.fig-hover.is-visible {
+  opacity: 1;
+}
+
+.fig-hover__label {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 2px 6px;
+  border-radius: 3px;
+  background: #0a7aff;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+/* Name tag di kursor yang berkeliaran. Atur posisi lewat --tag-x / --tag-y bila tidak pas dengan ujung panah. */
+.cursor {
+  --tag-x: 42px;
+  --tag-y: 54px;
+}
+
+.cursor__tag {
+  position: absolute;
+  left: var(--tag-x);
+  top: var(--tag-y);
+  padding: 2px 8px;
+  border-radius: 2px 8px 8px 8px;
+  background: #0a7aff;
+  color: #fff;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 16px;
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fig-hover {
+    transition: none;
+  }
+}
+
+/* ===================================================================
    RESPONSIVE BREAKPOINTS
    =================================================================== */
 
@@ -2679,11 +2769,6 @@ html.loader-leaving .loader__layer {
   .hero-copy {
     width: 100%;
     max-width: 100%;
-    align-items: center;
-  }
-
-  .hero-copy h1 {
-    text-align: center;
   }
 
   .hero-preview {
