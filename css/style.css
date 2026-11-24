@@ -175,8 +175,8 @@ a {
 
   /* Memotong video mengikuti bentuk rectangle-gradient-1.svg (bukit di bawah).
      Layer 1: SVG, posisi & lebar sama dengan .hero-gradient-fade (lebar 100%, bottom: -6px).
-     Layer 2: kotak penuh. mask-composite: exclude melubangi area yang tertutup SVG,
-     sisanya tetap terlihat. Jika offset 6px di bawah diubah, ubah juga bottom di .hero-gradient-fade. */
+     Layer 2: kotak penuh. mask-composite: exclude melubangi area yang tertutup SVG.
+     Path ../ karena url() dibaca relatif terhadap css/style.css. */
   -webkit-mask-image: url("../assets/images/rectangle-gradient-1.svg"), linear-gradient(#000, #000);
           mask-image: url("../assets/images/rectangle-gradient-1.svg"), linear-gradient(#000, #000);
   -webkit-mask-size: 100% auto, 100% 100%;
@@ -2079,7 +2079,7 @@ html.has-case {
 
 /* Footer */
 .footer {
-  border-top: 1px solid #756d7b;
+  border-top: 1px solid #756d7b7a;
   padding-top: 24px;
   display: flex;
   flex-direction: column;
@@ -3175,4 +3175,19 @@ html.loader-leaving .loader__layer {
   .cursor__rotate img {
     animation: none;
   }
+}
+
+/* ===================================================================
+   SCROLLSMOOTHER (js/smooth.js)
+   Kelas .has-smoother dipasang JS hanya jika ScrollSmoother benar-benar aktif.
+   =================================================================== */
+html.has-smoother {
+  /* scroll-behavior: smooth bertabrakan dengan ScrollSmoother; anchor ditangani smoother.scrollTo() */
+  scroll-behavior: auto;
+}
+
+/* position: sticky tidak berfungsi di dalam #smooth-content (konten digerakkan dengan transform).
+   Efek curtain: .about di-pin lewat ScrollTrigger di smooth.js, bukan lewat sticky. */
+html.has-smoother .curtain.is-curtain .about {
+  position: relative;
 }

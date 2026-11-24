@@ -85,6 +85,10 @@
     </div>
   </div>
 
+  <!-- ScrollSmoother: hanya konten yang ikut di-smooth. Loader, mobile-nav, work-preview, dan case (semua position: fixed) berada DI LUAR. -->
+  <div id="smooth-wrapper">
+  <div id="smooth-content">
+
   <!-- ==================== HERO / INTRODUCTION ==================== -->
   <!-- Curtain reveal: hero (lapisan atas) dan About (diam di belakangnya); lihat js/curtain.js -->
   <div class="curtain">
@@ -163,7 +167,7 @@
         </div>
 
         <!-- Right: Playful Portfolio Preview -->
-        <div class="hero-preview">
+        <div class="hero-preview" data-speed="0.88">
           <!-- Identity Preview Card (yellow, tilted) -->
           <div class="identity-card">
             <div class="identity-card-inner">
@@ -329,7 +333,7 @@
   <!-- ==================== SELECTED WORK ==================== -->
   <section class="section-work" id="work" aria-labelledby="work-title">
     <!-- Pattern background -->
-    <div class="pattern-087">
+    <div class="pattern-087" data-speed="0.9">
       <img src="assets/images/pattern-087.svg" alt="">
     </div>
 
@@ -402,6 +406,46 @@
       </p>
     </div>
   </section>
+
+  <!-- ==================== CONTACT & FOOTER ==================== -->
+  <section class="section-contact" id="contact">
+    <div class="contact__inner">
+      <div class="contact-invitation">
+        <div class="invitation-copy">
+          <p class="section-label">The next interesting thing starts with a hello.</p>
+          <h2>Have a wonderfully<br>odd idea?</h2>
+        </div>
+
+        <div class="contact-next">
+          <p>A new identity, a better digital experience, or something that doesn't quite fit a box. I'd love to hear
+            the
+            idea.</p>
+          <div class="btn-wrapper">
+            <a href="mailto:hello@thoriiiq.com" class="btn-primary">
+              Let's talk
+              <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-nav">
+          <span class="footer-brand">Independent visual designer & engineer</span>
+          <div class="footer-links">
+            <a href="#work">Work</a>
+            <a href="#about">About</a>
+            <a href="#home">Back to top ↑</a>
+          </div>
+        </div>
+        <p class="footer-tagline">A little unexpected. Always intentional.</p>
+      </footer>
+    </div>
+  </section>
+
+  </div><!-- /#smooth-content -->
+  </div><!-- /#smooth-wrapper -->
 
   <!-- ==================== WORK: PREVIEW & CASE WINDOW ==================== -->
   <!-- Kartu pratinjau yang mengikuti kursor (hanya mouse). Diisi oleh js/work.js -->
@@ -549,46 +593,12 @@
   </template>
 
 
-  <!-- ==================== CONTACT & FOOTER ==================== -->
-  <section class="section-contact" id="contact">
-    <div class="contact__inner">
-      <div class="contact-invitation">
-        <div class="invitation-copy">
-          <p class="section-label">The next interesting thing starts with a hello.</p>
-          <h2>Have a wonderfully<br>odd idea?</h2>
-        </div>
-
-        <div class="contact-next">
-          <p>A new identity, a better digital experience, or something that doesn't quite fit a box. I'd love to hear
-            the
-            idea.</p>
-          <div class="btn-wrapper">
-            <a href="mailto:hello@thoriiiq.com" class="btn-primary">
-              Let's talk
-              <img src="assets/icons/arrow-up-right.svg" alt="" width="16" height="16">
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Footer -->
-      <footer class="footer">
-        <div class="footer-nav">
-          <span class="footer-brand">Independent visual designer & engineer</span>
-          <div class="footer-links">
-            <a href="#work">Work</a>
-            <a href="#about">About</a>
-            <a href="#home">Back to top ↑</a>
-          </div>
-        </div>
-        <p class="footer-tagline">A little unexpected. Always intentional.</p>
-      </footer>
-    </div>
-  </section>
-
   <!-- Scripts -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js"></script>
+  <!-- smooth.js harus dibuat SEBELUM script lain yang membuat ScrollTrigger -->
+  <script src="js/smooth.js"></script>
   <script src="js/animations.js"></script>
   <script src="js/work.js"></script>
   <script src="js/menu.js"></script>
