@@ -179,14 +179,25 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------- A. ABOUT SECTION ---------- */
+  // Dengan curtain reveal, About sudah berada di balik hero sejak awal (posisinya 0), jadi pemicunya bukan posisi About
+  // melainkan saat hero terangkat sampai bagian About mulai terlihat.
+  const curtainOn = !!document.querySelector('.curtain.is-curtain');
+
   const aboutTL = gsap.timeline({
-    scrollTrigger: {
-      trigger: '#about',
-      start: 'top 78%',
-      toggleActions: 'play none none none'
-    },
+    scrollTrigger: curtainOn
+      ? { trigger: '#home', start: 'bottom 72%', toggleActions: 'play none none none' }
+      : { trigger: '#about', start: 'top 78%', toggleActions: 'play none none none' },
     defaults: { ease: 'power3.out' }
   });
+
+  // Parallax halus: latar hero bergerak sedikit lebih lambat daripada hero saat terangkat
+  if (curtainOn) {
+    gsap.to('.hero-bg', {
+      yPercent: 10,
+      ease: 'none',
+      scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
+    });
+  }
 
   // Left column elements
   aboutTL.from('.about__eyebrow', {

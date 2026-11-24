@@ -333,11 +333,6 @@ a {
   }
 }
 
-.hero-copy h1 {
-    color: #fff;
-    mix-blend-mode: difference;
-}
-
 .hero-copy p {
   font-size: 16px;
   font-weight: 500;
@@ -2757,6 +2752,34 @@ html.loader-leaving .loader__layer {
   .fig-hover {
     transition: none;
   }
+}
+
+/* ===================================================================
+   CURTAIN REVEAL (js/curtain.js): hero ter-scroll naik, About menunggu diam di belakangnya
+   Hanya aktif jika kelas .is-curtain dipasang (JS jalan dan tidak ada prefers-reduced-motion).
+   =================================================================== */
+.curtain.is-curtain {
+  position: relative;
+  /* warna yang sama dengan About, supaya setiap sisa ruang pembungkus tetap tampak menyatu */
+  background: var(--bg-about);
+}
+
+.curtain.is-curtain .section-intro {
+  z-index: 2;
+}
+
+.curtain.is-curtain .about {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  /* menutupi seluruh layar selama di-pin, jadi tidak ada celah yang terlihat saat hero terangkat */
+  min-height: 100vh;
+  min-height: 100svh;
+  margin-top: calc(var(--hero-h, 0px) * -1);
+}
+
+.curtain.is-curtain .curtain__spacer {
+  height: var(--hero-h, 0px);
 }
 
 /* ===================================================================

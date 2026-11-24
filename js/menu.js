@@ -61,7 +61,10 @@
     btn.setAttribute('aria-expanded', 'false');
     if (pendingTarget) {
       // Halaman melompat ke tujuan saat masih tertutup tirai; tirai lalu membuka ke posisi baru
-      pendingTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
+      // About di-pin oleh curtain reveal, jadi tujuannya dihitung lewat CurtainReveal bila aktif
+      const y = window.CurtainReveal ? window.CurtainReveal.anchorTop(pendingTarget) : null;
+      if (y !== null) window.scrollTo({ top: y, behavior: 'instant' });
+      else pendingTarget.scrollIntoView({ behavior: 'instant', block: 'start' });
       pendingTarget = null;
     } else if (restoreFocus) {
       btn.focus({ preventScroll: true });
