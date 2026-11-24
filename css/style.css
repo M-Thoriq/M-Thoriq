@@ -14,7 +14,7 @@
 }
 
 :root {
-  --bg-primary: #f7f4ec00;
+  --bg-primary: #f7f4ec;
   --bg-about: #f3edc6;
   --bg-work: #c1d7ef;
   --bg-contact: #554d61;
@@ -148,7 +148,7 @@ a {
   flex-direction: column;
   justify-content: space-between;
   overflow: hidden;
-  background-color: var(--bg-primary);
+  background-color: #f7f4ec00;
 }
 
 .hero-bg {
