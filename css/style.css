@@ -172,6 +172,21 @@ a {
      Tidak memakai overflow: hidden agar tampilan desktop tidak berubah; .section-intro
      sudah memotong sisa overflow. */
   container-type: size;
+
+  /* Memotong video mengikuti bentuk rectangle-gradient-1.svg (bukit di bawah).
+     Layer 1: SVG, posisi & lebar sama dengan .hero-gradient-fade (lebar 100%, bottom: -6px).
+     Layer 2: kotak penuh. mask-composite: exclude melubangi area yang tertutup SVG,
+     sisanya tetap terlihat. Jika offset 6px di bawah diubah, ubah juga bottom di .hero-gradient-fade. */
+  -webkit-mask-image: url("../assets/images/rectangle-gradient-1.svg"), linear-gradient(#000, #000);
+          mask-image: url("../assets/images/rectangle-gradient-1.svg"), linear-gradient(#000, #000);
+  -webkit-mask-size: 100% auto, 100% 100%;
+          mask-size: 100% auto, 100% 100%;
+  -webkit-mask-position: 50% calc(100% + 6px), 0 0;
+          mask-position: 50% calc(100% + 6px), 0 0;
+  -webkit-mask-repeat: no-repeat;
+          mask-repeat: no-repeat;
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
 }
 
 /* Jalur WebGPU: shader-core.js membuat <canvas> dan memberinya style inline
