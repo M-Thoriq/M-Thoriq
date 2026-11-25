@@ -348,6 +348,29 @@ a {
   }
 }
 
+/* Perbaikan iPhone (WebKit: Safari dan Chrome iOS). Setelah animasi dekode headline selesai, mix-blend-mode: difference
+   pada iOS berhenti memadukan warna dan teks putih (#fff) tampil apa adanya di atas langit terang. Android dan desktop
+   tidak terpengaruh. Di iOS headline memakai warna tinta biasa (selalu terbaca); efek difference tetap aktif di
+   browser lain. @supports (-webkit-touch-callout: none) hanya benar di iOS WebKit.
+   Saklar pada <section id="home"> untuk pengujian:
+     data-hero-blend="on"   : difference juga di iOS (disertai will-change: transform agar lapisan tidak dilepas)
+     data-hero-blend="off"  : tanpa difference di semua browser */
+@supports (-webkit-touch-callout: none) {
+  #home:not([data-hero-blend="on"]) .hero-copy h1 {
+    color: var(--ink-primary);
+    mix-blend-mode: normal;
+  }
+}
+
+#home[data-hero-blend="on"] .hero-copy h1 {
+  will-change: transform;
+}
+
+#home[data-hero-blend="off"] .hero-copy h1 {
+  color: var(--ink-primary);
+  mix-blend-mode: normal;
+}
+
 .hero-copy p {
   font-size: 16px;
   font-weight: 500;

@@ -3,6 +3,7 @@
  * dari kiri ke kanan. Teks tidak diubah dan tata letak tidak bergeser: setiap huruf dikunci pada lebar aslinya
  * (diukur dari layout asli, jadi kerning ikut terjaga). Setelah selesai, teks asli dikembalikan apa adanya.
  *
+ * Atribut data-type-keep pada elemen: tidak mengembalikan markup asli di akhir efek (opsi uji; bawaan mengembalikan).
  * Mendukung teks polos dengan <br> (mis. judul dua baris). Pembaca layar membaca teks utuh lewat aria-label selama efek berjalan. Dengan prefers-reduced-motion
  * efek dilewati dan teks langsung tampil.
  * Dipanggil dari animations.js (timeline hero): HeroType.scramble('.hero-copy h1')
@@ -105,9 +106,15 @@
       })(t0);
     });
 
-    // Kembalikan markup asli
     await new Promise(r => setTimeout(r, 220));
-    el.replaceChildren(...original);
+    if (el.hasAttribute('data-type-keep')) {
+      // Opsional (untuk pengujian di iOS): pertahankan <span> huruf dan jangan mengganti isi elemen di akhir efek.
+      // Pembaca layar tetap membaca teks karena aria-hidden dilepas dari kata-katanya.
+      el.querySelectorAll('.ht-word').forEach(w => w.removeAttribute('aria-hidden'));
+    } else {
+      // Bawaan: kembalikan markup asli
+      el.replaceChildren(...original);
+    }
     el.removeAttribute('aria-label');
     delete el.dataset.scrambling;
   }
