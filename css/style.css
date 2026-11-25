@@ -610,6 +610,7 @@ a {
   overflow: hidden;
   font-family: 'Manrope', sans-serif;
   color: var(--ink-primary);
+  align-content: center;
 }
 
 .about::selection {
