@@ -11,6 +11,12 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   if (reduce || !window.gsap || !window.ScrollTrigger || !window.ScrollSmoother) return;
+
+  // Perangkat sentuh TIDAK memakai ScrollSmoother. Walau smoothTouch: false, GSAP tetap membuat
+  // wrapper position: fixed dan menggeser konten dengan transform mengikuti event scroll: position: sticky
+  // (dasar curtain) mati dan gerakannya tertinggal dari scroll native. Di HP halaman dibiarkan
+  // berupa dokumen biasa, sehingga curtain dikerjakan compositor lewat CSS sticky.
+  if (!window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
   if (!document.getElementById('smooth-wrapper')) return;
 
   gsap.registerPlugin(ScrollTrigger, ScrollSmoother);
@@ -20,7 +26,7 @@
     content: '#smooth-content',
     smooth: 1.2,          // detik "ketertinggalan" scroll; naikkan = lebih licin
     effects: true,        // mengaktifkan data-speed / data-lag
-    smoothTouch: false    // layar sentuh tetap scroll native (lebih responsif)
+    smoothTouch: false
   });
 
   root.classList.add('has-smoother');

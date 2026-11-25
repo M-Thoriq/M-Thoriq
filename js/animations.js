@@ -38,9 +38,9 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Background fade & scale
+  // Tanpa fade opacity: hero berada di atas About yang di-pin (curtain), opacity < 1 membuat About tembus
   heroTL.from('.hero-bg', {
     scale: 1.05,
-    opacity: 0.8,
     duration: 1.8,
     ease: 'power2.out'
   }, 0);
@@ -192,11 +192,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Parallax halus: latar hero bergerak sedikit lebih lambat daripada hero saat terangkat
   if (curtainOn) {
-    gsap.to('.hero-bg', {
-      yPercent: 10,
-      ease: 'none',
-      scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
-    });
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (finePointer) {
+      gsap.to('.hero-bg', {
+        yPercent: 10,
+        ease: 'none',
+        scrollTrigger: { trigger: '#home', start: 'top top', end: 'bottom top', scrub: true }
+      });
+    } else {
+      // Di HP hero jauh lebih tinggi dari layar, jadi 10% tinggi hero = ratusan px dan bukit pemotong
+      // ikut tergeser keluar. Di sini jaraknya dipatok 10% tinggi LAYAR (sama seperti desktop), dan mask
+      // digeser berlawanan lewat --hero-shift agar lengkung bukit tetap di dasar hero.
+      const shift = () => Math.round(window.innerHeight * 0.1);
+      gsap.to('.hero-bg', {
+        y: shift,
+        '--hero-shift': () => shift() + 'px',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '#home', start: 'top top', end: 'bottom top',
+          scrub: true, invalidateOnRefresh: true
+        }
+      });
+    }
   }
 
   // Left column elements
@@ -256,56 +273,46 @@ document.addEventListener('DOMContentLoaded', () => {
     stagger: 0.18
   }, 0.45);
 
-  // Right column visual elements
-  aboutTL.from('.visual__dashed', {
-    scale: 0.9,
-    opacity: 0,
-    duration: 0.8
-  }, 0.2);
+  // Kolom visual About. Di desktop (berdampingan) ikut timeline di atas. Di HP kolom ini bertumpuk di BAWAH teks,
+  // jauh di luar layar saat hero terangkat, sehingga animasi masuknya akan habis sebelum terlihat.
+  // Jika letaknya jauh di bawah, animasinya baru diputar ketika visual itu benar-benar mendekati layar.
+  const addVisualTweens = (tl, t) => {
+    tl.from('.visual__dashed', { scale: 0.9, opacity: 0, duration: 0.8 }, t + 0.2);
+    tl.from('.visual__gimmick', { y: 100, opacity: 0, duration: 1.1, ease: 'power3.out' }, t + 0.3);
+    tl.from('.visual__frame-label', { y: -15, opacity: 0, duration: 0.5 }, t + 0.6);
+    tl.from('.poster', { y: -60, scale: 0.9, opacity: 0, duration: 0.95, ease: 'back.out(1.4)' }, t + 0.45);
+    tl.from('.selection', { scale: 0.75, y: -20, opacity: 0, duration: 0.65, ease: 'back.out(1.8)' }, t + 0.65);
+    tl.from('.visual__star', { scale: 0, rotation: 60, opacity: 0, duration: 0.75, ease: 'back.out(2)' }, t + 0.75);
+    tl.from('.cursor', { x: 40, y: 40, opacity: 0, duration: 0.85 }, t + 0.85);
+  };
 
-  aboutTL.from('.visual__gimmick', {
-    y: 100,
-    opacity: 0,
-    duration: 1.1,
-    ease: 'power3.out'
-  }, 0.3);
+  const aboutEl = document.getElementById('about');
+  const visualEl = document.querySelector('.visual');
+  const homeEl = document.getElementById('home');
+  const visualOffset = () => visualEl.getBoundingClientRect().top - aboutEl.getBoundingClientRect().top;
+  const visualBelowFold = !!(aboutEl && visualEl && homeEl && visualOffset() > window.innerHeight * 0.6);
 
-  aboutTL.from('.visual__frame-label', {
-    y: -15,
-    opacity: 0,
-    duration: 0.5
-  }, 0.6);
-
-  aboutTL.from('.poster', {
-    y: -60,
-    scale: 0.9,
-    opacity: 0,
-    duration: 0.95,
-    ease: 'back.out(1.4)'
-  }, 0.45);
-
-  aboutTL.from('.selection', {
-    scale: 0.75,
-    y: -20,
-    opacity: 0,
-    duration: 0.65,
-    ease: 'back.out(1.8)'
-  }, 0.65);
-
-  aboutTL.from('.visual__star', {
-    scale: 0,
-    rotation: 60,
-    opacity: 0,
-    duration: 0.75,
-    ease: 'back.out(2)'
-  }, 0.75);
-
-  aboutTL.from('.cursor', {
-    x: 40,
-    y: 40,
-    opacity: 0,
-    duration: 0.85
-  }, 0.85);
+  if (!visualBelowFold) {
+    addVisualTweens(aboutTL, 0);
+  } else {
+    const visualTL = gsap.timeline({ paused: true, defaults: { ease: 'power3.out' } });
+    addVisualTweens(visualTL, -0.2);
+    const play = () => visualTL.play();
+    if (curtainOn) {
+      // About di-pin (sticky) selama scroll sepanjang tinggi hero, lalu bergulir normal. ScrollTrigger tidak
+      // tahu soal sticky, jadi titiknya dihitung manual: scroll saat visual berada di 85% tinggi layar.
+      ScrollTrigger.create({
+        start: () => Math.max(
+          homeEl.offsetHeight - window.innerHeight * 0.72,
+          homeEl.offsetHeight + visualOffset() - window.innerHeight * 0.85
+        ),
+        onEnter: play,
+        once: true
+      });
+    } else {
+      ScrollTrigger.create({ trigger: visualEl, start: 'top 85%', onEnter: play, once: true });
+    }
+  }
 
 
   /* ---------- B. SELECTED WORK SECTION ---------- */

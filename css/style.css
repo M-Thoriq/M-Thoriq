@@ -40,6 +40,7 @@ body {
   background-color: var(--bg-primary);
   color: var(--ink-primary);
   overflow-x: hidden;
+  overflow-x: clip; /* clip tidak membuat scroll container, jadi position: sticky (curtain) aman di iOS */
   line-height: 1.5;
 }
 
@@ -173,6 +174,12 @@ a {
      sudah memotong sisa overflow. */
   container-type: size;
 
+  /* Latar buram yang ikut terpotong mask bukit: selama video belum termuat (atau opacity animasi < 1),
+     About yang di-pin di belakang hero tidak mengintip lewat hero yang transparan. */
+  background-color: var(--bg-primary);
+  /* Dianimasikan di perangkat sentuh (animations.js) agar bukit tidak ikut bergeser saat parallax */
+  --hero-shift: 0px;
+
   /* Memotong video mengikuti bentuk rectangle-gradient-1.svg (bukit di bawah).
      Layer 1: SVG, posisi & lebar sama dengan .hero-gradient-fade (lebar 100%, bottom: -6px).
      Layer 2: kotak penuh. mask-composite: exclude melubangi area yang tertutup SVG.
@@ -181,8 +188,8 @@ a {
           mask-image: url("../assets/images/rectangle-gradient-1.svg"), linear-gradient(#000, #000);
   -webkit-mask-size: 100% auto, 100% 100%;
           mask-size: 100% auto, 100% 100%;
-  -webkit-mask-position: 50% calc(100% + 6px), 0 0;
-          mask-position: 50% calc(100% + 6px), 0 0;
+  -webkit-mask-position: 50% calc(100% + 6px - var(--hero-shift, 0px)), 0 0;
+          mask-position: 50% calc(100% + 6px - var(--hero-shift, 0px)), 0 0;
   -webkit-mask-repeat: no-repeat;
           mask-repeat: no-repeat;
   -webkit-mask-composite: xor;
@@ -3214,3 +3221,4 @@ html.has-smoother {
 html.has-smoother .curtain.is-curtain .about {
   position: relative;
 }
+
